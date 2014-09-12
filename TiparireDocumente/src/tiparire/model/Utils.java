@@ -4,6 +4,8 @@ import java.awt.Font;
 import java.awt.FontFormatException;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 
@@ -78,8 +80,7 @@ public class Utils {
 	public static ImageIcon createIcon(URL path) {
 		ImageIcon icon = new ImageIcon(path);
 		return icon;
-	}	
-	
+	}
 
 	public static Font createFont(String path) {
 		URL url = System.class.getClass().getResource(path);
@@ -92,6 +93,104 @@ public class Utils {
 		}
 
 		return font;
+	}
+
+	public static String[] getUserDepartaments() {
+
+		List<String> departaments = new ArrayList<String>();
+
+		String userDep = UserInfo.getInstance().getInitDepart();
+
+		if (userDep.equals("TOAT")) {
+			departaments.add("Lemnoase");
+			departaments.add("Feronerie");
+			departaments.add("Parchet");
+			departaments.add("Materiale grele");
+			departaments.add("Electrice");
+			departaments.add("Gips");
+			departaments.add("Chimice");
+			departaments.add("Instalatii");
+			departaments.add("Hidroizolatii");
+		}
+
+		if (userDep.equals("CIEL")) {
+			departaments.add("Chimice");
+			departaments.add("Instalatii");
+		}
+
+		if (userDep.equals("FEHI")) {
+			departaments.add("Feronerie");
+			departaments.add("Hidroizolatii");
+		}
+
+		if (userDep.equals("LEFA")) {
+			departaments.add("Lemnoase");
+			departaments.add("Feronerie");
+		}
+
+		if (userDep.equals("DEP1")) {
+			departaments.add("Gips");
+			departaments.add("Lemnoase");
+			departaments.add("Parchet");
+			departaments.add("Chimice");
+		}
+
+		if (userDep.equals("DEP2")) {
+			departaments.add("Hidroizolatii");
+			departaments.add("Instalatii");
+		}
+
+		if (userDep.equals("DEP3")) {
+			departaments.add("Chimice");
+			departaments.add("Electrice");
+		}
+
+		if (userDep.equals("DEP4")) {
+			departaments.add("Parchet");
+			departaments.add("Gips");
+		}
+
+		if (userDep.equals("DEP5")) {
+			departaments.add("Electrice");
+			departaments.add("Instalatii");
+		}
+
+		if (userDep.equals("DEP6")) {
+			departaments.add("Materiale grele");
+			departaments.add("Instalatii");
+			departaments.add("Hidroizolatii");
+		}
+
+		if (userDep.equals("DEP7")) {
+			departaments.add("Gips");
+			departaments.add("Electrice");
+		}
+
+		if (userDep.equals("DEP8")) {
+			departaments.add("Parchet");
+			departaments.add("Chimice");
+		}
+
+		if (userDep.equals("DEP9")) {
+			departaments.add("Gips");
+			departaments.add("Lemnoase");
+			departaments.add("Parchet");
+			departaments.add("Hidroizolatii");
+		}
+
+		if (userDep.equals("DP13")) {
+			departaments.add("Instalatii");
+			departaments.add("Chimice");
+		}
+
+		if (userDep.equals("DP20")) {
+			departaments.add("Parchet");
+			departaments.add("Feronerie");
+		}
+
+		String[] depArray = departaments.toArray(new String[departaments.size()]);
+
+		return depArray;
 	}
 
 }

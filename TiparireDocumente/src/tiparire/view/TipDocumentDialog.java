@@ -61,7 +61,7 @@ public class TipDocumentDialog extends JDialog implements DataListener {
 
 		Calendar date = Calendar.getInstance();
 		int year = date.get(Calendar.YEAR);
-		int month = date.get(Calendar.MONTH) + 1;
+		int month = date.get(Calendar.MONTH);
 		int day = date.get(Calendar.DAY_OF_MONTH);
 
 		model.setDate(year, month, day);
@@ -112,7 +112,7 @@ public class TipDocumentDialog extends JDialog implements DataListener {
 				Calendar cal = Calendar.getInstance();
 				cal.setTime(selectedDate);
 				int year = cal.get(Calendar.YEAR);
-				int month = cal.get(Calendar.MONTH);
+				int month = cal.get(Calendar.MONTH) + 1;
 				int day = cal.get(Calendar.DAY_OF_MONTH);
 
 				String printDate = String.valueOf(year) + String.format("%02d", month) + String.format("%02d", day);

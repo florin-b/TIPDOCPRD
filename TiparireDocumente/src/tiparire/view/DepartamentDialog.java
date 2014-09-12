@@ -20,6 +20,7 @@ import tiparire.model.Database;
 import tiparire.model.EnumDepartamente;
 import tiparire.model.TipDocumentAfisat;
 import tiparire.model.UserInfo;
+import tiparire.model.Utils;
 
 @SuppressWarnings("serial")
 public class DepartamentDialog extends JDialog implements DataListener {
@@ -40,7 +41,9 @@ public class DepartamentDialog extends JDialog implements DataListener {
 		db = new Database(parent);
 		db.setDataListener(this);
 
-		departamentList = new JList<Object>(EnumDepartamente.values());
+		// departamentList = new JList<Object>(EnumDepartamente.values());
+
+		departamentList = new JList<Object>();
 		departamentList.setMinimumSize(new Dimension(100, 100));
 		departamentList.setSize(new Dimension(100, 100));
 
@@ -65,8 +68,7 @@ public class DepartamentDialog extends JDialog implements DataListener {
 
 				UserInfo.getInstance().setDepart(departamentList.getSelectedValue().toString());
 				db.setDataListener(DepartamentDialog.this);
-				
-				
+
 				if (TipDocumentAfisat.getInstance().isNetiparit())
 					db.getDocumenteNetiparite();
 				else
@@ -114,6 +116,13 @@ public class DepartamentDialog extends JDialog implements DataListener {
 		setVisible(false);
 		departamentListener.departamentSelected(departamentList.getSelectedValue().toString(), db.getDocumente());
 
+	}
+
+	public void setDepartaments() {
+
+		String[] userDepartaments = Utils.getUserDepartaments();
+
+		departamentList.setListData(userDepartaments);
 	}
 
 }

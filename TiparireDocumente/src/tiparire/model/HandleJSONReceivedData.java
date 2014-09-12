@@ -86,13 +86,13 @@ public class HandleJSONReceivedData {
 		if (numeFiliala.equals("GALATI"))
 			fl = "GL10";
 
-		if (numeFiliala.equals("PITESTI"))
+		if (numeFiliala.equals("PITESTI") || numeFiliala.equals("AGTOTAL"))
 			fl = "AG10";
 
 		if (numeFiliala.equals("TIMISOARA"))
 			fl = "TM10";
 
-		if (numeFiliala.equals("ORADEA"))
+		if (numeFiliala.equals("ORADEA") || numeFiliala.equals("BIHORTOTAL"))
 			fl = "BH10";
 
 		if (numeFiliala.equals("FOCSANI"))
@@ -107,8 +107,9 @@ public class HandleJSONReceivedData {
 		if (numeFiliala.equals("OTOPENI"))
 			fl = "BU12";
 
-		if (numeFiliala.equals("CLUJ"))
+		if (numeFiliala.equals("CLUJ") || numeFiliala.equals("CLUJTOTAL"))
 			fl = "CJ10";
+		
 
 		if (numeFiliala.equals("BAIA"))
 			fl = "MM10";
@@ -116,10 +117,10 @@ public class HandleJSONReceivedData {
 		if (numeFiliala.equals("MILITARI"))
 			fl = "BU11";
 
-		if (numeFiliala.equals("CONSTANTA"))
+		if (numeFiliala.equals("CONSTANTA") || numeFiliala.equals("CTTOTAL"))
 			fl = "CT10";
 
-		if (numeFiliala.equals("BRASOV"))
+		if (numeFiliala.equals("BRASOV") || numeFiliala.equals("BVTOTAL"))
 			fl = "BV10";
 
 		if (numeFiliala.equals("PLOIESTI"))
@@ -131,7 +132,7 @@ public class HandleJSONReceivedData {
 		if (numeFiliala.equals("MURES"))
 			fl = "MS10";
 
-		if (numeFiliala.equals("IASI"))
+		if (numeFiliala.equals("IASI") || numeFiliala.equals("IASITOTAL"))
 			fl = "IS10";
 
 		if (numeFiliala.equals("CRAIOVA"))
