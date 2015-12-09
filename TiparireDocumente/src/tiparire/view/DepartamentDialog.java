@@ -33,7 +33,7 @@ public class DepartamentDialog extends JDialog implements DataListener {
 	Database db;
 
 	public DepartamentDialog(JFrame parent) {
-		super(parent, "Selectie departament", false);
+		super(parent, "Selectie departament", true);
 
 		okButton = new JButton("Ok");
 		cancelButton = new JButton("Inchide");
@@ -41,7 +41,6 @@ public class DepartamentDialog extends JDialog implements DataListener {
 		db = new Database(parent);
 		db.setDataListener(this);
 
-		// departamentList = new JList<Object>(EnumDepartamente.values());
 
 		departamentList = new JList<Object>();
 		departamentList.setMinimumSize(new Dimension(100, 100));
@@ -49,7 +48,7 @@ public class DepartamentDialog extends JDialog implements DataListener {
 
 		setMinimumSize(new Dimension(220, 220));
 		setSize(220, 220);
-		setModal(true);
+		
 
 		pack();
 		setLocationRelativeTo(parent);
@@ -123,6 +122,7 @@ public class DepartamentDialog extends JDialog implements DataListener {
 		String[] userDepartaments = Utils.getUserDepartaments();
 
 		departamentList.setListData(userDepartaments);
+		
 	}
 
 }

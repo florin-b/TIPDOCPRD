@@ -108,12 +108,7 @@ public class MainFrame extends JFrame implements LogonListener, DepartamentListe
 				departDialog.setDepartaments();
 				departDialog.setVisible(true);
 				
-				/*
-				if (UserInfo.getInstance().getInitDepart().equals("TOAT")) {
-					departDialog.setDepartaments();
-					departDialog.setVisible(true);
-				}
-				*/
+				
 			}
 		});
 

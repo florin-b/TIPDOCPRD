@@ -35,6 +35,8 @@ public class Database implements ProgressDialogListener {
 	}
 
 	public void getDocumenteNetiparite() {
+		
+		
 		progressDialog = new ProgressDialog(parent, "Asteptati...");
 		progressDialog.setLocationRelativeTo(null);
 		progressDialog.setListener(this);

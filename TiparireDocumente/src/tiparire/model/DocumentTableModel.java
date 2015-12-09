@@ -6,6 +6,10 @@ import javax.swing.table.AbstractTableModel;
 
 public class DocumentTableModel extends AbstractTableModel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private List<Document> docsList;
 	private String[] colNames = { "ID", "Data emiterii", "Client",
 			"Departament" };

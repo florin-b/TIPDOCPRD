@@ -86,8 +86,7 @@ public class DocumentCell extends AbstractCellEditor implements TableCellEditor,
 		splitPanel.setResizeWeight(0.95);
 		splitPanel.setEnabled(false);
 
-		// mainPanel.add(docPanel, BorderLayout.WEST);
-		// mainPanel.add(buttonPanel, BorderLayout.EAST);
+		
 
 		mainPanel.add(splitPanel, BorderLayout.CENTER);
 

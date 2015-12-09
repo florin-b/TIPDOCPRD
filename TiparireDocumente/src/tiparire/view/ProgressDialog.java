@@ -15,6 +15,8 @@ import javax.swing.SwingUtilities;
 
 public class ProgressDialog extends JDialog {
 
+	
+	private static final long serialVersionUID = 1L;
 	private JButton cancelButton;
 	private JProgressBar progressBar;
 	private ProgressDialogListener listener;
