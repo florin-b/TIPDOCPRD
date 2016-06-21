@@ -64,6 +64,7 @@ public class HandleJSONReceivedData {
 					unArticol
 							.setPozitie(String.valueOf(Integer.valueOf(articolObject.getString("pozitieArticol")) / 10));
 
+					unArticol.setPregatit(articolObject.getString("isPregatit").equals("1") ? true : false);
 					objectsList.add(unArticol);
 
 				}
@@ -109,7 +110,6 @@ public class HandleJSONReceivedData {
 
 		if (numeFiliala.equals("CLUJ") || numeFiliala.equals("CLUJTOTAL"))
 			fl = "CJ10";
-		
 
 		if (numeFiliala.equals("BAIA"))
 			fl = "MM10";

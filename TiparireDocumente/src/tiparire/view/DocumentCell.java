@@ -1,23 +1,21 @@
 package tiparire.view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.net.URL;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.AbstractCellEditor;
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
@@ -25,23 +23,35 @@ import javax.swing.border.Border;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
+import org.xmlpull.v1.XmlPullParserException;
+
+import tiparire.listeners.PregatireMarfaListener;
 import tiparire.model.Articol;
 import tiparire.model.Database;
 import tiparire.model.Document;
+import tiparire.model.UserInfo;
 import tiparire.model.Utils;
+import tiparire.model.WebService;
 
 @SuppressWarnings("serial")
-public class DocumentCell extends AbstractCellEditor implements TableCellEditor, TableCellRenderer {
-	JPanel mainPanel;
+public class DocumentCell extends AbstractCellEditor implements TableCellEditor, TableCellRenderer,
+		PregatireMarfaListener {
+	private JPanel mainPanel;
 
-	JButton printButton;
-	JLabel imageLabel;
+	private JButton printButton;
+	private JLabel imageLabel;
 
-	JPanel buttonPanel;
-	HeaderDocPanel docPanel;
+	private JButton marfaPregatitaBtn;
 
-	Document document;
-	JSplitPane splitPanel;
+	private JPanel buttonPanel;
+	private HeaderDocPanel docPanel;
+
+	private Document document;
+	private JSplitPane splitPanel;
+
+	private WebService service;
+
+	private boolean isMarfaPregatita = false;
 
 	public DocumentCell() {
 
@@ -58,10 +68,35 @@ public class DocumentCell extends AbstractCellEditor implements TableCellEditor,
 			}
 		});
 
+		service = new WebService();
+		service.setPregatireMarfaListener(DocumentCell.this);
+
 		Dimension printDim = new Dimension(140, 30);
 		printButton.setPreferredSize(printDim);
 		printButton.setSize(printDim);
 		printButton.setFont(new Font("Helvetica", Font.PLAIN, 14));
+
+		marfaPregatitaBtn = new JButton("Marfa pregatita");
+		marfaPregatitaBtn.setBackground(Color.orange);
+
+		marfaPregatitaBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				fireEditingStopped();
+				isMarfaPregatita = !isMarfaPregatita;
+
+				try {
+					service.setMarfaPregatita(document.getId(), UserInfo.getInstance().getId(), document,
+							isMarfaPregatita);
+				} catch (IOException | XmlPullParserException e) {
+					e.printStackTrace();
+				}
+
+			}
+		});
+
+		marfaPregatitaBtn.setPreferredSize(printDim);
+		marfaPregatitaBtn.setSize(printDim);
+		marfaPregatitaBtn.setFont(new Font("Helvetica", Font.PLAIN, 14));
 
 		int space = 15;
 		Border spaceBorder = BorderFactory.createEmptyBorder(space, space, space, space);
@@ -72,6 +107,7 @@ public class DocumentCell extends AbstractCellEditor implements TableCellEditor,
 		buttonPanel = new JPanel(new BorderLayout());
 		buttonPanel.add(printButton, BorderLayout.NORTH);
 		buttonPanel.add(imageLabel, BorderLayout.CENTER);
+		buttonPanel.add(marfaPregatitaBtn, BorderLayout.SOUTH);
 
 		imageLabel.setVisible(false);
 
@@ -82,11 +118,9 @@ public class DocumentCell extends AbstractCellEditor implements TableCellEditor,
 		mainPanel = new JPanel(new BorderLayout());
 
 		splitPanel = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, docPanel, buttonPanel);
-		splitPanel.setDividerLocation(0.95);
-		splitPanel.setResizeWeight(0.95);
+		splitPanel.setDividerLocation(0.6);
+		splitPanel.setResizeWeight(0.6);
 		splitPanel.setEnabled(false);
-
-		
 
 		mainPanel.add(splitPanel, BorderLayout.CENTER);
 
@@ -104,6 +138,16 @@ public class DocumentCell extends AbstractCellEditor implements TableCellEditor,
 			imageLabel.setVisible(false);
 			printButton.setIcon(null);
 			printButton.revalidate();
+		}
+
+		if (document.isMarfaPregatita()) {
+			isMarfaPregatita = true;
+			marfaPregatitaBtn.setBackground(new Color(238, 238, 238));
+			marfaPregatitaBtn.setText("Anuleaza pregatire");
+		} else {
+			isMarfaPregatita = false;
+			marfaPregatitaBtn.setBackground(Color.ORANGE);
+			marfaPregatitaBtn.setText("Marfa pregatita");
 		}
 
 		docPanel.setDocument(document.getId());
@@ -141,5 +185,16 @@ public class DocumentCell extends AbstractCellEditor implements TableCellEditor,
 		return mainPanel;
 	}
 
+	@Override
+	public void pregatireComplete(Document document, String response) {
+
+		if (!response.equals("-1")) {
+			document.setMarfaPregatita(isMarfaPregatita);
+
+		} else {
+			JOptionPane.showMessageDialog(null, "Operatie esuata!");
+		}
+
+	}
 
 }

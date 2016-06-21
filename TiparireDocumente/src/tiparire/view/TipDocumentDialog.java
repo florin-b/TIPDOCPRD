@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.border.Border;
 
+import tiparire.enums.EnumTipDocument;
 import tiparire.model.Database;
 import tiparire.model.TipDocumentAfisat;
 
@@ -39,6 +40,7 @@ public class TipDocumentDialog extends JDialog implements DataListener {
 	private JDatePickerImpl datePicker;
 	private TipDocumentListener documentListener;
 	private int tipDoc = 1;
+	private EnumTipDocument tipDocument;
 
 	Database db;
 
@@ -119,7 +121,7 @@ public class TipDocumentDialog extends JDialog implements DataListener {
 
 				if (tipDoc == 1) {
 					TipDocumentAfisat.getInstance().setNetiparit(true);
-					db.getDocumenteNetiparite();
+					db.getDocumenteNetiparite(getTipDocument());
 				}
 				if (tipDoc == 2) {
 					TipDocumentAfisat.getInstance().setNetiparit(false);
@@ -188,6 +190,14 @@ public class TipDocumentDialog extends JDialog implements DataListener {
 		setVisible(false);
 		documentListener.tipDocumentSelected(db.getDocumente());
 
+	}
+
+	public EnumTipDocument getTipDocument() {
+		return tipDocument;
+	}
+
+	public void setTipDocument(EnumTipDocument tipDocument) {
+		this.tipDocument = tipDocument;
 	}
 
 }

@@ -13,7 +13,12 @@ import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 import org.xmlpull.v1.XmlPullParserException;
 
+import tiparire.enums.EnumTipDocument;
+import tiparire.listeners.PregatireMarfaListener;
+
 public class WebService {
+
+	private PregatireMarfaListener pregatireListener;
 
 	public WebService() {
 
@@ -46,12 +51,13 @@ public class WebService {
 
 	}
 
-	public String getDocumente() throws IOException, XmlPullParserException {
+	public String getDocumente(EnumTipDocument tipDocument) throws IOException, XmlPullParserException {
 
 		SoapObject request = new SoapObject(ConnectionStrings.getInstance().getNamespace(), "getDocumente");
 
 		request.addProperty("filiala", UserInfo.getInstance().getUnitLog());
 		request.addProperty("departament", Utils.getDepartCode(UserInfo.getInstance().getDepart()));
+		request.addProperty("tipDocument", tipDocument.toString());
 
 		SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
 		envelope.dotNet = true;
@@ -84,8 +90,8 @@ public class WebService {
 		List<HeaderProperty> headerList = new ArrayList<HeaderProperty>();
 		headerList.add(new HeaderProperty("Authorization", "Basic "
 				+ org.kobjects.base64.Base64.encode("bflorin:bflorin".getBytes())));
-		androidHttpTransport
-				.call(ConnectionStrings.getInstance().getNamespace() + "getDocumenteTiparite", envelope, headerList);
+		androidHttpTransport.call(ConnectionStrings.getInstance().getNamespace() + "getDocumenteTiparite", envelope,
+				headerList);
 		Object result = (Object) envelope.getResponse();
 		String response = result.toString();
 
@@ -120,6 +126,39 @@ public class WebService {
 		String response = result.toString();
 
 		return response;
+	}
+
+	public String setMarfaPregatita(String nrDocument, String gestionar, Document document, boolean isMarfaPregatita)
+			throws IOException, XmlPullParserException {
+
+		SoapObject request = new SoapObject(ConnectionStrings.getInstance().getNamespace(), "setMarfaPregatita");
+
+		request.addProperty("nrDocument", nrDocument);
+		request.addProperty("gestionar", gestionar);
+		request.addProperty("isMarfaPreg", isMarfaPregatita);
+
+		SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+		envelope.dotNet = true;
+		envelope.setOutputSoapObject(request);
+		HttpTransportSE androidHttpTransport = new HttpTransportSE(ConnectionStrings.getInstance().getUrl(), 20000);
+		List<HeaderProperty> headerList = new ArrayList<HeaderProperty>();
+		headerList.add(new HeaderProperty("Authorization", "Basic "
+				+ org.kobjects.base64.Base64.encode("bflorin:bflorin".getBytes())));
+		androidHttpTransport.call(ConnectionStrings.getInstance().getNamespace() + "setMarfaPregatita", envelope,
+				headerList);
+		Object result = (Object) envelope.getResponse();
+		String response = result.toString();
+
+		if (pregatireListener != null) {
+			pregatireListener.pregatireComplete(document, response);
+		}
+
+		return response;
+
+	}
+
+	public void setPregatireMarfaListener(PregatireMarfaListener pregatireListener) {
+		this.pregatireListener = pregatireListener;
 	}
 
 }

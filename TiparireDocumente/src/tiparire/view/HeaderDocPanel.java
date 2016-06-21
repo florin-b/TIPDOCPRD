@@ -7,10 +7,14 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -19,7 +23,6 @@ import javax.swing.table.DefaultTableCellRenderer;
 
 import tiparire.model.Articol;
 import tiparire.model.Document;
-import tiparire.model.Utils;
 
 @SuppressWarnings("serial")
 public class HeaderDocPanel extends JPanel {
@@ -34,6 +37,8 @@ public class HeaderDocPanel extends JPanel {
 
 	private JTable artTable;
 	private ArticolTableModel artTableModel;
+
+	private JButton marfaPregButton;
 
 	public HeaderDocPanel(Document document) {
 
@@ -67,9 +72,7 @@ public class HeaderDocPanel extends JPanel {
 		artPanel.setPreferredSize(new Dimension(650, 210));
 
 		artTable.setFont(new Font("Courier New", Font.PLAIN, 13));
-		
-		
-		
+
 		artTable.setBackground(new Color(253, 252, 220));
 		artTable.setForeground(new Color(0, 100, 0));
 		artTable.setRowHeight(20);
@@ -79,7 +82,17 @@ public class HeaderDocPanel extends JPanel {
 		headerPanel.setLayout(new GridBagLayout());
 
 		nrDocument = new JLabel();
-		nrDocument.setFont(new Font("Arial", Font.PLAIN, 13));
+		nrDocument.setFont(new Font("Arial", Font.PLAIN, 15));
+
+		marfaPregButton = new JButton();
+		marfaPregButton.setFont(new Font("Arial", Font.PLAIN, 15));
+		marfaPregButton.setText("Marfa pregatita");
+
+		marfaPregButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "123");
+			}
+		});
 
 		client = new JLabel();
 		client.setFont(new Font("Arial", Font.BOLD, 18));
@@ -95,7 +108,7 @@ public class HeaderDocPanel extends JPanel {
 
 		GridBagConstraints gc = new GridBagConstraints();
 
-		// ////////////////Second row//////////////////////////
+		// //////////////////////////////////////////
 
 		gc.gridy++;
 
@@ -108,7 +121,7 @@ public class HeaderDocPanel extends JPanel {
 		gc.anchor = GridBagConstraints.LINE_START;
 		headerPanel.add(client, gc);
 
-		// ////////////////Third row//////////////////////////
+		// //////////////////////////////////////////
 
 		gc.gridy++;
 
@@ -120,9 +133,25 @@ public class HeaderDocPanel extends JPanel {
 		gc.anchor = GridBagConstraints.FIRST_LINE_START;
 		headerPanel.add(dataEmitere, gc);
 
+		// //////////////////////////////////////////
+
+		gc.gridy++;
+
+		gc.weightx = 1;
+		gc.weighty = 0.2;
+
+		gc.gridx = 1;
+		gc.insets = new Insets(2, 20, 0, 0);
+		gc.anchor = GridBagConstraints.FIRST_LINE_START;
+		headerPanel.add(nrDocument, gc);
+
 		int spaceCount = 5;
 		Border spaceCountBorder = BorderFactory.createEmptyBorder(spaceCount, spaceCount, spaceCount, spaceCount);
 		headerPanel.setBorder(spaceCountBorder);
+
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.add(marfaPregButton);
+		buttonPanel.setBorder(spaceCountBorder);
 
 		JPanel headerContainer = new JPanel();
 		headerContainer.setLayout(new BorderLayout());
@@ -132,6 +161,7 @@ public class HeaderDocPanel extends JPanel {
 
 		headerContainer.add(rowNumLabel, BorderLayout.WEST);
 		headerContainer.add(headerPanel, BorderLayout.CENTER);
+
 		headerContainer.setBorder(spaceBorder);
 
 		add(headerContainer, BorderLayout.NORTH);
@@ -145,6 +175,7 @@ public class HeaderDocPanel extends JPanel {
 
 	public void setDocument(String documentText) {
 		nrDocument.setText(documentText);
+
 	}
 
 	public void setEmitere(String emitereText) {

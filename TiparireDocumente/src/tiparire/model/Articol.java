@@ -10,13 +10,16 @@ public class Articol {
 	private String cantitate;
 	private String um;
 	private String pozitie;
+	private boolean isPregatit;
 
 	public Articol() {
 
 	}
 
+	
+
 	public Articol(String documentId, String client, String emitere, String cod, String nume, String cantitate,
-			String um, String pozitie) {
+			String um, String pozitie, boolean isPregatit) {
 		super();
 		this.documentId = documentId;
 		this.client = client;
@@ -26,7 +29,10 @@ public class Articol {
 		this.cantitate = cantitate;
 		this.um = um;
 		this.pozitie = pozitie;
+		this.isPregatit = isPregatit;
 	}
+
+
 
 	public String getDocumentId() {
 		return documentId;
@@ -90,6 +96,18 @@ public class Articol {
 
 	public void setPozitie(String pozitie) {
 		this.pozitie = pozitie;
+	}
+
+
+
+	public boolean isPregatit() {
+		return isPregatit;
+	}
+
+
+
+	public void setPregatit(boolean isPregatit) {
+		this.isPregatit = isPregatit;
 	}
 	
 	

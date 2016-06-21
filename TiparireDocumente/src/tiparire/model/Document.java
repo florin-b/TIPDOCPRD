@@ -15,13 +15,14 @@ public class Document implements KvmSerializable, Serializable {
 	private String departament;
 	private String filiala;
 	private String seTipareste;
+	private boolean marfaPregatita = true;
 
 	public Document() {
 
 	}
 
 	public Document(String id, String dataEmiterii, String client, String departament, String filiala,
-			String seTipareste) {
+			String seTipareste, boolean marfaPregatita) {
 		super();
 		this.id = id;
 		this.dataEmitere = dataEmiterii;
@@ -29,6 +30,7 @@ public class Document implements KvmSerializable, Serializable {
 		this.departament = departament;
 		this.filiala = filiala;
 		this.seTipareste = seTipareste;
+		this.marfaPregatita = marfaPregatita;
 	}
 
 	public String getId() {
@@ -79,6 +81,14 @@ public class Document implements KvmSerializable, Serializable {
 		this.seTipareste = seTipareste;
 	}
 
+	public boolean isMarfaPregatita() {
+		return marfaPregatita;
+	}
+
+	public void setMarfaPregatita(boolean marfaPregatita) {
+		this.marfaPregatita = marfaPregatita;
+	}
+
 	public String toString() {
 		return id + " , " + dataEmitere + " , " + client + " , " + departament + " , " + filiala;
 	}
@@ -97,6 +107,8 @@ public class Document implements KvmSerializable, Serializable {
 			return filiala;
 		case 5:
 			return seTipareste;
+		case 6:
+			return marfaPregatita;
 
 		}
 		return null;
@@ -131,6 +143,11 @@ public class Document implements KvmSerializable, Serializable {
 		case 5:
 			info.type = PropertyInfo.STRING_CLASS;
 			info.name = "seTipareste";
+			break;
+
+		case 6:
+			info.type = PropertyInfo.BOOLEAN_CLASS;
+			info.name = "marfaPregatita";
 			break;
 		default:
 			break;

@@ -11,6 +11,7 @@ import javax.swing.SwingWorker;
 
 import org.xmlpull.v1.XmlPullParserException;
 
+import tiparire.enums.EnumTipDocument;
 import tiparire.view.DataListener;
 import tiparire.view.ProgressDialog;
 import tiparire.view.ProgressDialogListener;
@@ -34,7 +35,7 @@ public class Database implements ProgressDialogListener {
 
 	}
 
-	public void getDocumenteNetiparite() {
+	public void getDocumenteNetiparite(final EnumTipDocument tipDocument) {
 		
 		
 		progressDialog = new ProgressDialog(parent, "Asteptati...");
@@ -58,7 +59,7 @@ public class Database implements ProgressDialogListener {
 
 				try {
 					WebService service = new WebService();
-					docResult = service.getDocumente();
+					docResult = service.getDocumente(tipDocument);
 				} catch (IOException e) {
 					e.printStackTrace();
 				} catch (XmlPullParserException e) {
@@ -203,7 +204,7 @@ public class Database implements ProgressDialogListener {
 
 				if (!docFound) {
 					Document unDocument = new Document(articol.get(i).getDocumentId(), articol.get(i).getEmitere(),
-							articol.get(i).getClient(), "00", "00", "0");
+							articol.get(i).getClient(), "00", "00", "0", articol.get(i).isPregatit());
 					documente.add(unDocument);
 				}
 

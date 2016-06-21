@@ -65,6 +65,10 @@ public class LogonDialog extends JDialog implements ProgressDialogListener {
 		passField = new JPasswordField(15);
 		passField.setEchoChar('*');
 
+		
+		//userField.setText("CMARCUS1");
+		//passField.setText("28RTrG");
+		
 		addLayoutControls();
 
 		logonButton.addActionListener(new ActionListener() {

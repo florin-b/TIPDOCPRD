@@ -7,13 +7,16 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.List;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.KeyStroke;
 
+import tiparire.enums.EnumTipDocument;
 import tiparire.model.Database;
 import tiparire.model.Document;
 import tiparire.model.EnumLogonStatus;
@@ -34,6 +37,8 @@ public class MainFrame extends JFrame implements LogonListener, DepartamentListe
 	private TipDocumentDialog tipDocDialog;
 	CreateDocument doc;
 	Database db;
+
+	private EnumTipDocument tipDocument = EnumTipDocument.TOATE;
 
 	public MainFrame() {
 
@@ -66,7 +71,7 @@ public class MainFrame extends JFrame implements LogonListener, DepartamentListe
 		logonDialog.setLogonListener(this);
 		logonDialog.setVisible(true);
 
-		setMinimumSize(new Dimension(900, 600));
+		setMinimumSize(new Dimension(1000, 600));
 		setSize(900, 600);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -82,14 +87,32 @@ public class MainFrame extends JFrame implements LogonListener, DepartamentListe
 
 		JMenu actionMenu = new JMenu("Actiuni");
 		JMenu displayMenu = new JMenu("Afiseaza");
+		JMenu tipDocMenu = new JMenu("Tip document");
 
 		JMenuItem departItem = new JMenuItem("Departament");
 		JMenuItem exitItem = new JMenuItem("Iesire");
+
+		JRadioButtonMenuItem rbMenuTransf = new JRadioButtonMenuItem("Transfer");
+
+		JRadioButtonMenuItem rbMenuDistrib = new JRadioButtonMenuItem("Distributie");
+
+		JRadioButtonMenuItem rbMenuToate = new JRadioButtonMenuItem("Toate");
+		rbMenuToate.setSelected(true);
+
+		ButtonGroup group = new ButtonGroup();
+		group.add(rbMenuTransf);
+		group.add(rbMenuDistrib);
+		group.add(rbMenuToate);
+
+		tipDocMenu.add(rbMenuTransf);
+		tipDocMenu.add(rbMenuDistrib);
+		tipDocMenu.add(rbMenuToate);
 
 		actionMenu.add(departItem);
 		actionMenu.add(exitItem);
 		menuBar.add(actionMenu);
 		menuBar.add(displayMenu);
+		menuBar.add(tipDocMenu);
 
 		JMenuItem tipDocItem = new JMenuItem("Documente");
 		displayMenu.add(tipDocItem);
@@ -100,21 +123,25 @@ public class MainFrame extends JFrame implements LogonListener, DepartamentListe
 		actionMenu.setMnemonic(KeyEvent.VK_A);
 		exitItem.setMnemonic(KeyEvent.VK_X);
 
+		setMenuTransfListener(rbMenuTransf);
+		setMenuDistribListener(rbMenuDistrib);
+		setMenuToateListener(rbMenuToate);
+
 		exitItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, ActionEvent.CTRL_MASK));
 
 		departItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				departDialog.setDepartaments();
 				departDialog.setVisible(true);
-				
-				
+
 			}
 		});
 
 		tipDocItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				tipDocDialog.setVisible(true);
+				tipDocDialog.setTipDocument(tipDocument);
 
 			}
 		});
@@ -126,6 +153,45 @@ public class MainFrame extends JFrame implements LogonListener, DepartamentListe
 		});
 
 		return menuBar;
+	}
+
+	private void setMenuTransfListener(JRadioButtonMenuItem rbMenuItem) {
+		rbMenuItem.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				tipDocument = EnumTipDocument.TRANSFER;
+				db.getDocumenteNetiparite(tipDocument);
+				toolbar.setTipDocument("Documente netiparite - transfer");
+
+			}
+		});
+	}
+
+	private void setMenuDistribListener(JRadioButtonMenuItem rbMenuItem) {
+		rbMenuItem.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				tipDocument = EnumTipDocument.DISTRIBUTIE;
+				db.getDocumenteNetiparite(tipDocument);
+				toolbar.setTipDocument("Documente netiparite - distributie");
+
+			}
+		});
+	}
+
+	private void setMenuToateListener(JRadioButtonMenuItem rbMenuItem) {
+		rbMenuItem.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				tipDocument = EnumTipDocument.TOATE;
+				db.getDocumenteNetiparite(tipDocument);
+				toolbar.setTipDocument("Documente netiparite - toate");
+
+			}
+		});
 	}
 
 	public void logonSucceeded() {
@@ -142,13 +208,13 @@ public class MainFrame extends JFrame implements LogonListener, DepartamentListe
 			} else {
 
 				toolbar.setDepartamentString(Utils.getFullDepartName(UserInfo.getInstance().getDepart()));
-				db.getDocumenteNetiparite();
+				db.getDocumenteNetiparite(EnumTipDocument.TOATE);
 			}
 
 			setVisible(true);
 
 			toolbar.setNumeGest(UserInfo.getInstance().getNume());
-			toolbar.setTipDocument("Documente netiparite");
+			toolbar.setTipDocument("Documente netiparite - toate");
 
 		} else {
 			setVisible(false);
@@ -179,7 +245,7 @@ public class MainFrame extends JFrame implements LogonListener, DepartamentListe
 
 	public void refreshEventOccured() {
 		if (TipDocumentAfisat.getInstance().isNetiparit())
-			db.getDocumenteNetiparite();
+			db.getDocumenteNetiparite(tipDocument);
 
 	}
 
@@ -190,7 +256,7 @@ public class MainFrame extends JFrame implements LogonListener, DepartamentListe
 
 	public void printFinished() {
 		if (TipDocumentAfisat.getInstance().isNetiparit())
-			db.getDocumenteNetiparite();
+			db.getDocumenteNetiparite(tipDocument);
 		else
 			db.getDocumenteTiparite(TipDocumentAfisat.getInstance().getDataTiparire());
 
@@ -199,7 +265,7 @@ public class MainFrame extends JFrame implements LogonListener, DepartamentListe
 	public void tipDocumentSelected(List<Document> listDocumente) {
 
 		if (TipDocumentAfisat.getInstance().isNetiparit()) {
-			toolbar.setTipDocument("Documente netiparite");
+			toolbar.setTipDocument("Documente netiparite - toate");
 		} else {
 			toolbar.setTipDocument("Documente tiparite");
 		}

@@ -1,11 +1,19 @@
 package tiparire.view;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.print.PageFormat;
+import java.awt.print.Printable;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
-
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -135,7 +143,7 @@ public class CreateDocument {
 
 		documentString = builder.toString();
 
-		addDocumentTiparitToDb();
+		sendToMyPrinter();
 
 		if (printListener != null) {
 			printListener.printFinished();
@@ -158,7 +166,47 @@ public class CreateDocument {
 				e.printStackTrace();
 			}
 
-			sendToPrinter();
+		}
+
+	}
+
+	private void sendToMyPrinter() {
+		PrinterJob pj = PrinterJob.getPrinterJob();
+		pj.setPrintable(new PrintableString());
+		if (pj.printDialog()) {
+			try {
+				pj.print();
+				addDocumentTiparitToDb();
+			} catch (PrinterException e) {
+				System.out.println(e);
+			}
+		}
+	}
+
+	class PrintableString implements Printable {
+
+		public int print(Graphics g, PageFormat pf, int pageIndex) {
+			if (pageIndex != 0)
+				return NO_SUCH_PAGE;
+
+			Graphics2D g2 = (Graphics2D) g;
+			g2.setFont(new Font("MONOSPACED", Font.PLAIN, 10));
+			g2.setPaint(Color.black);
+
+			BufferedReader buf = new BufferedReader(new StringReader(documentString));
+
+			String thisLine = null;
+			int startYAlign = 40;
+			try {
+				while ((thisLine = buf.readLine()) != null) {
+					g2.drawString(thisLine, 40, startYAlign);
+					startYAlign += 10;
+				}
+			} catch (IOException e) {
+				System.out.println(e.toString());
+			}
+
+			return PAGE_EXISTS;
 		}
 
 	}
@@ -181,6 +229,8 @@ public class CreateDocument {
 				job.print(doc, null);
 			} catch (PrintException e) {
 				e.printStackTrace();
+			} catch (Exception e) {
+				System.out.println(e.toString());
 			}
 			watcher.waitForDone();
 

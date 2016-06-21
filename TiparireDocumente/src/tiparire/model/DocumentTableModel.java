@@ -27,7 +27,6 @@ public class DocumentTableModel extends AbstractTableModel {
 	}
 
 	public int getRowCount() {
-		//return docsList.size();
 		return 0;
 	}
 
