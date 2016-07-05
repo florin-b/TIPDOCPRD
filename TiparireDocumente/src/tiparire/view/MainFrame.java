@@ -38,7 +38,7 @@ public class MainFrame extends JFrame implements LogonListener, DepartamentListe
 	CreateDocument doc;
 	Database db;
 
-	private EnumTipDocument tipDocument = EnumTipDocument.TOATE;
+	private EnumTipDocument tipDocument = EnumTipDocument.TRANSFER;
 
 	public MainFrame() {
 
@@ -55,6 +55,7 @@ public class MainFrame extends JFrame implements LogonListener, DepartamentListe
 		doc = new CreateDocument();
 		doc.setPrintListener(this);
 
+		db.setTipDocument(EnumTipDocument.TRANSFER);
 		departDialog = new DepartamentDialog(MainFrame.this);
 		departDialog.setListener(this);
 
@@ -93,11 +94,11 @@ public class MainFrame extends JFrame implements LogonListener, DepartamentListe
 		JMenuItem exitItem = new JMenuItem("Iesire");
 
 		JRadioButtonMenuItem rbMenuTransf = new JRadioButtonMenuItem("Transfer");
+		rbMenuTransf.setSelected(true);
 
 		JRadioButtonMenuItem rbMenuDistrib = new JRadioButtonMenuItem("Distributie");
 
 		JRadioButtonMenuItem rbMenuToate = new JRadioButtonMenuItem("Toate");
-		rbMenuToate.setSelected(true);
 
 		ButtonGroup group = new ButtonGroup();
 		group.add(rbMenuTransf);
@@ -160,8 +161,8 @@ public class MainFrame extends JFrame implements LogonListener, DepartamentListe
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				tipDocument = EnumTipDocument.TRANSFER;
-				db.getDocumenteNetiparite(tipDocument);
+				db.setTipDocument(EnumTipDocument.TRANSFER);
+				db.getDocumenteNetiparite();
 				toolbar.setTipDocument("Documente netiparite - transfer");
 
 			}
@@ -173,8 +174,8 @@ public class MainFrame extends JFrame implements LogonListener, DepartamentListe
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				tipDocument = EnumTipDocument.DISTRIBUTIE;
-				db.getDocumenteNetiparite(tipDocument);
+				db.setTipDocument(EnumTipDocument.DISTRIBUTIE);
+				db.getDocumenteNetiparite();
 				toolbar.setTipDocument("Documente netiparite - distributie");
 
 			}
@@ -186,8 +187,8 @@ public class MainFrame extends JFrame implements LogonListener, DepartamentListe
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				tipDocument = EnumTipDocument.TOATE;
-				db.getDocumenteNetiparite(tipDocument);
+				db.setTipDocument(EnumTipDocument.TOATE);
+				db.getDocumenteNetiparite();
 				toolbar.setTipDocument("Documente netiparite - toate");
 
 			}
@@ -208,13 +209,14 @@ public class MainFrame extends JFrame implements LogonListener, DepartamentListe
 			} else {
 
 				toolbar.setDepartamentString(Utils.getFullDepartName(UserInfo.getInstance().getDepart()));
-				db.getDocumenteNetiparite(EnumTipDocument.TOATE);
+				db.setTipDocument(EnumTipDocument.TRANSFER);
+				db.getDocumenteNetiparite();
 			}
 
 			setVisible(true);
 
 			toolbar.setNumeGest(UserInfo.getInstance().getNume());
-			toolbar.setTipDocument("Documente netiparite - toate");
+			toolbar.setTipDocument("Documente netiparite - transfer");
 
 		} else {
 			setVisible(false);
@@ -245,7 +247,7 @@ public class MainFrame extends JFrame implements LogonListener, DepartamentListe
 
 	public void refreshEventOccured() {
 		if (TipDocumentAfisat.getInstance().isNetiparit())
-			db.getDocumenteNetiparite(tipDocument);
+			db.getDocumenteNetiparite();
 
 	}
 
@@ -256,7 +258,7 @@ public class MainFrame extends JFrame implements LogonListener, DepartamentListe
 
 	public void printFinished() {
 		if (TipDocumentAfisat.getInstance().isNetiparit())
-			db.getDocumenteNetiparite(tipDocument);
+			db.getDocumenteNetiparite();
 		else
 			db.getDocumenteTiparite(TipDocumentAfisat.getInstance().getDataTiparire());
 

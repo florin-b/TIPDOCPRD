@@ -121,7 +121,7 @@ public class TipDocumentDialog extends JDialog implements DataListener {
 
 				if (tipDoc == 1) {
 					TipDocumentAfisat.getInstance().setNetiparit(true);
-					db.getDocumenteNetiparite(getTipDocument());
+					db.getDocumenteNetiparite();
 				}
 				if (tipDoc == 2) {
 					TipDocumentAfisat.getInstance().setNetiparit(false);

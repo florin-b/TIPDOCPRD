@@ -65,6 +65,7 @@ public class HandleJSONReceivedData {
 							.setPozitie(String.valueOf(Integer.valueOf(articolObject.getString("pozitieArticol")) / 10));
 
 					unArticol.setPregatit(articolObject.getString("isPregatit").equals("1") ? true : false);
+					unArticol.setTiparit(articolObject.getString("isTiparit").equals("1") ? true : false);
 					objectsList.add(unArticol);
 
 				}

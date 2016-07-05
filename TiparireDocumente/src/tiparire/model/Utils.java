@@ -223,6 +223,11 @@ public class Utils {
 			departaments.add("Lemnoase");
 			departaments.add("Gips");
 		}
+		
+		if (userDep.equals("DP37")) {
+			departaments.add("Chimice");
+			departaments.add("Materiale grele");
+		}
 
 		if (userDep.equals("DP38")) {
 			departaments.add("Lemnoase");

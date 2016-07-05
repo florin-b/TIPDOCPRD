@@ -11,15 +11,14 @@ public class Articol {
 	private String um;
 	private String pozitie;
 	private boolean isPregatit;
+	private boolean isTiparit;
 
 	public Articol() {
 
 	}
 
-	
-
 	public Articol(String documentId, String client, String emitere, String cod, String nume, String cantitate,
-			String um, String pozitie, boolean isPregatit) {
+			String um, String pozitie, boolean isPregatit, boolean isTiparit) {
 		super();
 		this.documentId = documentId;
 		this.client = client;
@@ -30,9 +29,8 @@ public class Articol {
 		this.um = um;
 		this.pozitie = pozitie;
 		this.isPregatit = isPregatit;
+		this.isTiparit = isTiparit;
 	}
-
-
 
 	public String getDocumentId() {
 		return documentId;
@@ -98,19 +96,27 @@ public class Articol {
 		this.pozitie = pozitie;
 	}
 
-
-
 	public boolean isPregatit() {
 		return isPregatit;
 	}
 
-
-
 	public void setPregatit(boolean isPregatit) {
 		this.isPregatit = isPregatit;
 	}
-	
-	
-	
+
+	public boolean isTiparit() {
+		return isTiparit;
+	}
+
+	public void setTiparit(boolean isTiparit) {
+		this.isTiparit = isTiparit;
+	}
+
+	@Override
+	public String toString() {
+		return "Articol [documentId=" + documentId + ", client=" + client + ", emitere=" + emitere + ", cod=" + cod
+				+ ", nume=" + nume + ", cantitate=" + cantitate + ", um=" + um + ", pozitie=" + pozitie
+				+ ", isPregatit=" + isPregatit + ", isTiparit=" + isTiparit + "]";
+	}
 
 }

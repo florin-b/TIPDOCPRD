@@ -16,9 +16,9 @@ import javax.swing.JScrollPane;
 
 import javax.swing.border.Border;
 
+
 import tiparire.enums.EnumTipDocument;
 import tiparire.model.Database;
-import tiparire.model.EnumDepartamente;
 import tiparire.model.TipDocumentAfisat;
 import tiparire.model.UserInfo;
 import tiparire.model.Utils;
@@ -41,6 +41,7 @@ public class DepartamentDialog extends JDialog implements DataListener {
 
 		db = new Database(parent);
 		db.setDataListener(this);
+		db.setTipDocument(EnumTipDocument.TRANSFER);
 
 		departamentList = new JList<Object>();
 		departamentList.setMinimumSize(new Dimension(100, 100));
@@ -67,9 +68,9 @@ public class DepartamentDialog extends JDialog implements DataListener {
 				UserInfo.getInstance().setDepart(departamentList.getSelectedValue().toString());
 				db.setDataListener(DepartamentDialog.this);
 
-				if (TipDocumentAfisat.getInstance().isNetiparit())
-					db.getDocumenteNetiparite(EnumTipDocument.TOATE);
-				else
+				if (TipDocumentAfisat.getInstance().isNetiparit()) {
+					db.getDocumenteNetiparite();
+				} else
 					db.getDocumenteTiparite(TipDocumentAfisat.getInstance().getDataTiparire());
 
 			}
@@ -117,9 +118,7 @@ public class DepartamentDialog extends JDialog implements DataListener {
 	}
 
 	public void setDepartaments() {
-
 		String[] userDepartaments = Utils.getUserDepartaments();
-
 		departamentList.setListData(userDepartaments);
 
 	}

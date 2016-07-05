@@ -25,6 +25,7 @@ public class Database implements ProgressDialogListener {
 	private ProgressDialog progressDialog;
 	private SwingWorker<String, String> swingWorker;
 	private JFrame parent;
+	private EnumTipDocument tipDocument;
 
 	public Database() {
 
@@ -35,9 +36,8 @@ public class Database implements ProgressDialogListener {
 
 	}
 
-	public void getDocumenteNetiparite(final EnumTipDocument tipDocument) {
-		
-		
+	public void getDocumenteNetiparite() {
+
 		progressDialog = new ProgressDialog(parent, "Asteptati...");
 		progressDialog.setLocationRelativeTo(null);
 		progressDialog.setListener(this);
@@ -204,7 +204,8 @@ public class Database implements ProgressDialogListener {
 
 				if (!docFound) {
 					Document unDocument = new Document(articol.get(i).getDocumentId(), articol.get(i).getEmitere(),
-							articol.get(i).getClient(), "00", "00", "0", articol.get(i).isPregatit());
+							articol.get(i).getClient(), "00", "00", "0", articol.get(i).isPregatit(), articol.get(i)
+									.isTiparit());
 					documente.add(unDocument);
 				}
 
@@ -228,6 +229,14 @@ public class Database implements ProgressDialogListener {
 
 	public void clearListDocumente() {
 		this.documente.clear();
+	}
+
+	public void setTipDocument(EnumTipDocument tipDocument) {
+		this.tipDocument = tipDocument;
+	}
+
+	public EnumTipDocument getTipDocument() {
+		return tipDocument;
 	}
 
 	public void progressDialogCancelled() {

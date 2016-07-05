@@ -16,13 +16,14 @@ public class Document implements KvmSerializable, Serializable {
 	private String filiala;
 	private String seTipareste;
 	private boolean marfaPregatita = true;
+	private boolean isTiparit;
 
 	public Document() {
 
 	}
 
 	public Document(String id, String dataEmiterii, String client, String departament, String filiala,
-			String seTipareste, boolean marfaPregatita) {
+			String seTipareste, boolean marfaPregatita, boolean isTiparit) {
 		super();
 		this.id = id;
 		this.dataEmitere = dataEmiterii;
@@ -31,6 +32,7 @@ public class Document implements KvmSerializable, Serializable {
 		this.filiala = filiala;
 		this.seTipareste = seTipareste;
 		this.marfaPregatita = marfaPregatita;
+		this.isTiparit = isTiparit;
 	}
 
 	public String getId() {
@@ -93,6 +95,14 @@ public class Document implements KvmSerializable, Serializable {
 		return id + " , " + dataEmitere + " , " + client + " , " + departament + " , " + filiala;
 	}
 
+	public boolean isTiparit() {
+		return isTiparit;
+	}
+
+	public void setTiparit(boolean isTiparit) {
+		this.isTiparit = isTiparit;
+	}
+
 	public Object getProperty(int arg0) {
 		switch (arg0) {
 		case 0:
@@ -109,6 +119,8 @@ public class Document implements KvmSerializable, Serializable {
 			return seTipareste;
 		case 6:
 			return marfaPregatita;
+		case 7:
+			return isTiparit;
 
 		}
 		return null;
@@ -148,6 +160,10 @@ public class Document implements KvmSerializable, Serializable {
 		case 6:
 			info.type = PropertyInfo.BOOLEAN_CLASS;
 			info.name = "marfaPregatita";
+			break;
+		case 7:
+			info.type = PropertyInfo.BOOLEAN_CLASS;
+			info.name = "isTiparit";
 			break;
 		default:
 			break;

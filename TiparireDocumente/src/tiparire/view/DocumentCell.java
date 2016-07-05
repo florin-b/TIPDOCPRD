@@ -140,6 +140,15 @@ public class DocumentCell extends AbstractCellEditor implements TableCellEditor,
 			printButton.revalidate();
 		}
 
+		if (document.isTiparit()) {
+			printButton.setText("Tiparit");
+			buttonPanel.setBackground(new Color(127, 197, 205));
+
+		} else {
+			buttonPanel.setBackground(new Color(238, 238, 238));
+			printButton.setText("Selecteaza");
+		}
+
 		if (document.isMarfaPregatita()) {
 			isMarfaPregatita = true;
 			marfaPregatitaBtn.setBackground(new Color(238, 238, 238));
