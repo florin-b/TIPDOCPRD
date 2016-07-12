@@ -26,6 +26,7 @@ import javax.swing.table.TableCellRenderer;
 import org.xmlpull.v1.XmlPullParserException;
 
 import tiparire.listeners.PregatireMarfaListener;
+import tiparire.model.AlertaEmitere;
 import tiparire.model.Articol;
 import tiparire.model.Database;
 import tiparire.model.Document;
@@ -164,6 +165,8 @@ public class DocumentCell extends AbstractCellEditor implements TableCellEditor,
 		docPanel.setEmitere(document.getDataEmiterii());
 		docPanel.setRownum(String.valueOf(row + 1));
 
+		setTextAlertEmitereDocument(document);
+
 		List<Articol> tempArticol = new LinkedList<Articol>();
 
 		for (int ii = 0; ii < Database.articol.size(); ii++) {
@@ -174,6 +177,24 @@ public class DocumentCell extends AbstractCellEditor implements TableCellEditor,
 
 		docPanel.setArticolData(tempArticol);
 
+	}
+
+	private void setTextAlertEmitereDocument(Document document) {
+
+		String textAlert = null;
+		int nrOreEmitere = new AlertaEmitere().getAlertaEmitere(document);
+
+		if (document.getTip().equals("T")) {
+			if (nrOreEmitere > 8)
+				textAlert = "Document emis acum " + nrOreEmitere + " ore";
+		} else if (document.getTip().equals("D"))
+			if (nrOreEmitere > 4)
+				textAlert = "Document emis acum " + nrOreEmitere + " ore";
+
+		if (textAlert != null)
+			docPanel.setAlertEmitereText(textAlert);
+		else
+			docPanel.setAlertEmitereText("");
 	}
 
 	public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {

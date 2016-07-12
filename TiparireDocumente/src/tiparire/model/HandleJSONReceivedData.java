@@ -66,6 +66,7 @@ public class HandleJSONReceivedData {
 
 					unArticol.setPregatit(articolObject.getString("isPregatit").equals("1") ? true : false);
 					unArticol.setTiparit(articolObject.getString("isTiparit").equals("1") ? true : false);
+					unArticol.setTip(articolObject.getString("tip"));
 					objectsList.add(unArticol);
 
 				}

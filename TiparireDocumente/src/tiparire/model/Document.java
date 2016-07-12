@@ -17,13 +17,14 @@ public class Document implements KvmSerializable, Serializable {
 	private String seTipareste;
 	private boolean marfaPregatita = true;
 	private boolean isTiparit;
+	private String tip;
 
 	public Document() {
 
 	}
 
 	public Document(String id, String dataEmiterii, String client, String departament, String filiala,
-			String seTipareste, boolean marfaPregatita, boolean isTiparit) {
+			String seTipareste, boolean marfaPregatita, boolean isTiparit, String tip) {
 		super();
 		this.id = id;
 		this.dataEmitere = dataEmiterii;
@@ -33,6 +34,7 @@ public class Document implements KvmSerializable, Serializable {
 		this.seTipareste = seTipareste;
 		this.marfaPregatita = marfaPregatita;
 		this.isTiparit = isTiparit;
+		this.tip = tip;
 	}
 
 	public String getId() {
@@ -101,6 +103,14 @@ public class Document implements KvmSerializable, Serializable {
 
 	public void setTiparit(boolean isTiparit) {
 		this.isTiparit = isTiparit;
+	}
+
+	public String getTip() {
+		return tip;
+	}
+
+	public void setTip(String tip) {
+		this.tip = tip;
 	}
 
 	public Object getProperty(int arg0) {

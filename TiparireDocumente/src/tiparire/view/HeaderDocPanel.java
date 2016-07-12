@@ -21,6 +21,7 @@ import javax.swing.JTable;
 import javax.swing.border.Border;
 import javax.swing.table.DefaultTableCellRenderer;
 
+import tiparire.model.AlertaEmitere;
 import tiparire.model.Articol;
 import tiparire.model.Document;
 
@@ -38,7 +39,7 @@ public class HeaderDocPanel extends JPanel {
 	private JTable artTable;
 	private ArticolTableModel artTableModel;
 
-	private JButton marfaPregButton;
+	private JLabel alertaEmitere;
 
 	public HeaderDocPanel(Document document) {
 
@@ -84,15 +85,11 @@ public class HeaderDocPanel extends JPanel {
 		nrDocument = new JLabel();
 		nrDocument.setFont(new Font("Arial", Font.PLAIN, 15));
 
-		marfaPregButton = new JButton();
-		marfaPregButton.setFont(new Font("Arial", Font.PLAIN, 15));
-		marfaPregButton.setText("Marfa pregatita");
-
-		marfaPregButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "123");
-			}
-		});
+		alertaEmitere = new JLabel();
+		alertaEmitere.setFont(new Font("Arial", Font.BOLD, 15));
+		alertaEmitere.setForeground(Color.RED);
+		
+		
 
 		client = new JLabel();
 		client.setFont(new Font("Arial", Font.BOLD, 18));
@@ -149,9 +146,9 @@ public class HeaderDocPanel extends JPanel {
 		Border spaceCountBorder = BorderFactory.createEmptyBorder(spaceCount, spaceCount, spaceCount, spaceCount);
 		headerPanel.setBorder(spaceCountBorder);
 
-		JPanel buttonPanel = new JPanel();
-		buttonPanel.add(marfaPregButton);
-		buttonPanel.setBorder(spaceCountBorder);
+		JPanel alertPanel = new JPanel();
+		alertPanel.add(alertaEmitere);
+		alertPanel.setBorder(spaceCountBorder);
 
 		JPanel headerContainer = new JPanel();
 		headerContainer.setLayout(new BorderLayout());
@@ -161,6 +158,7 @@ public class HeaderDocPanel extends JPanel {
 
 		headerContainer.add(rowNumLabel, BorderLayout.WEST);
 		headerContainer.add(headerPanel, BorderLayout.CENTER);
+		headerContainer.add(alertPanel, BorderLayout.EAST);
 
 		headerContainer.setBorder(spaceBorder);
 
@@ -190,6 +188,10 @@ public class HeaderDocPanel extends JPanel {
 		artTableModel.setData(articol);
 		artTableModel.fireTableDataChanged();
 
+	}
+
+	public void setAlertEmitereText(String alertText) {
+		alertaEmitere.setText(alertText);
 	}
 
 }
