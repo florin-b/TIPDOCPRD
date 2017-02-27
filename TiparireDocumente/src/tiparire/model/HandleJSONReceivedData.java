@@ -122,6 +122,9 @@ public class HandleJSONReceivedData {
 		if (numeFiliala.equals("CONSTANTA") || numeFiliala.equals("CTTOTAL"))
 			fl = "CT10";
 
+		if (numeFiliala.equals("BV FER CEN"))
+			fl = "BV90";
+
 		if (numeFiliala.equals("BRASOV") || numeFiliala.equals("BVTOTAL"))
 			fl = "BV10";
 
@@ -139,6 +142,15 @@ public class HandleJSONReceivedData {
 
 		if (numeFiliala.equals("CRAIOVA"))
 			fl = "DJ10";
+		
+		if (numeFiliala.equals("BUZAU"))
+			fl = "BZ10";
+		
+		if (numeFiliala.equals("SIBIU"))
+			fl = "SB10";
+		
+		if (numeFiliala.equals("DEVA"))
+			fl = "HD10";			
 
 		return fl;
 

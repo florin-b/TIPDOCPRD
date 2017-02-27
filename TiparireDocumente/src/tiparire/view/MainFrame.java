@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.List;
+import java.util.Locale;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
@@ -38,6 +39,8 @@ public class MainFrame extends JFrame implements LogonListener, DepartamentListe
 	CreateDocument doc;
 	Database db;
 
+	
+	
 	private EnumTipDocument tipDocument = EnumTipDocument.TRANSFER;
 
 	public MainFrame() {

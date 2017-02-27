@@ -4,13 +4,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class AlertaEmitere {
 
 	public int getAlertaEmitere(Document document) {
 
 		int nrOre = 0;
-		SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy HH:mm");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy HH:mm", Locale.US);
 		try {
 
 			long diff = getStopProgram(document.getFiliala(), new Date()).getTime()
@@ -58,12 +59,14 @@ public class AlertaEmitere {
 	}
 
 	private Date getStopProgram(String filiala, Date data) throws ParseException {
+		
+		
 
-		SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy", new Locale("ro"));
 
 		String oraSfarsit = "";
 
-		Calendar cal = Calendar.getInstance();
+		Calendar cal = Calendar.getInstance(new Locale("ro"));
 		cal.setTime(data);
 
 		if (cal.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY)
@@ -91,7 +94,7 @@ public class AlertaEmitere {
 		}
 
 		String stringStop = sdf.format(data) + oraSfarsit;
-		SimpleDateFormat sdfFinal = new SimpleDateFormat("dd-MMM-yyyy HH:mm");
+		SimpleDateFormat sdfFinal = new SimpleDateFormat("dd-MMM-yyyy HH:mm", new Locale("ro"));
 		Date dataStop = sdfFinal.parse(stringStop);
 
 		return dataStop;

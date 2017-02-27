@@ -2,6 +2,7 @@ package tiparire.view;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.print.PageFormat;
@@ -16,6 +17,7 @@ import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -84,7 +86,13 @@ public class CreateDocument {
 
 				documentTiparit.add(document.get(i));
 
-				builder.append("Client: " + document.get(i).getClient());
+				builder.append("Client:");
+				builder.append(addSpace("Client:", 15));
+				builder.append(document.get(i).getClient());
+				builder.append(System.getProperty("line.separator"));
+				builder.append("Document:");
+				builder.append(addSpace("Document:", 15));
+				builder.append(document.get(i).getId());
 
 				builder.append(System.getProperty("line.separator"));
 				builder.append(System.getProperty("line.separator"));
@@ -185,57 +193,67 @@ public class CreateDocument {
 
 	class PrintableString implements Printable {
 
-		public int print(Graphics g, PageFormat pf, int pageIndex) {
-			if (pageIndex != 0)
-				return NO_SUCH_PAGE;
+		int[] pageBreaks;
+		List<String> textLines;
 
-			Graphics2D g2 = (Graphics2D) g;
-			g2.setFont(new Font("MONOSPACED", Font.PLAIN, 10));
-			g2.setPaint(Color.black);
+		private void loadData() throws IOException {
+			String thisLine = null;
 
 			BufferedReader buf = new BufferedReader(new StringReader(documentString));
 
-			String thisLine = null;
-			int startYAlign = 40;
-			try {
-				while ((thisLine = buf.readLine()) != null) {
-					g2.drawString(thisLine, 40, startYAlign);
-					startYAlign += 10;
+			textLines = new ArrayList<>();
+
+			while ((thisLine = buf.readLine()) != null) {
+				textLines.add(thisLine);
+			}
+		}
+
+		public int print(Graphics g, PageFormat pf, int pageIndex) {
+
+			Font font = new Font("MONOSPACED", Font.PLAIN, 10);
+
+			Graphics2D g2 = (Graphics2D) g;
+			g2.setFont(font);
+			g2.setPaint(Color.black);
+
+			if (pageBreaks == null) {
+				try {
+					loadData();
+
+					int linesPerPage = 75;
+
+					int numBreaks = (textLines.size() - 1) / linesPerPage;
+					pageBreaks = new int[numBreaks];
+					for (int b = 0; b < numBreaks; b++) {
+						pageBreaks[b] = (b + 1) * linesPerPage;
+					}
+
+				} catch (IOException e) {
+					e.printStackTrace();
 				}
-			} catch (IOException e) {
-				System.out.println(e.toString());
+			}
+
+			if (pageBreaks != null && pageIndex > pageBreaks.length) {
+				return NO_SUCH_PAGE;
+			}
+
+			Graphics2D g2d = (Graphics2D) g;
+			g2d.translate(pf.getImageableX(), pf.getImageableY());
+
+			int startYAlign = 40;
+			int start = (pageIndex == 0) ? 0 : pageBreaks[pageIndex - 1];
+			int end = (pageIndex == pageBreaks.length) ? textLines.size() : pageBreaks[pageIndex];
+
+			int currentPage = pageIndex;
+			g.drawString("Pagina " + String.valueOf(++currentPage), 530, 40);
+			for (int line = start; line < end; line++) {
+
+				g.drawString(textLines.get(line), 40, startYAlign);
+				startYAlign += 10;
 			}
 
 			return PAGE_EXISTS;
-		}
 
-	}
-
-	private void sendToPrinter() {
-		InputStream in;
-		try {
-
-			in = new ByteArrayInputStream(documentString.getBytes("UTF8"));
-
-			DocFlavor flavor = DocFlavor.INPUT_STREAM.AUTOSENSE;
-			AttributeSet attributeSet = new HashAttributeSet();
-			attributeSet.add(new PrinterName("NPI8DA48A", null));
-			PrintService service = PrintServiceLookup.lookupDefaultPrintService();
-
-			DocPrintJob job = service.createPrintJob();
-			Doc doc = new SimpleDoc(in, flavor, null);
-			PrintJobWatcher watcher = new PrintJobWatcher(job);
-			try {
-				job.print(doc, null);
-			} catch (PrintException e) {
-				e.printStackTrace();
-			} catch (Exception e) {
-				System.out.println(e.toString());
-			}
-			watcher.waitForDone();
-
-		} catch (UnsupportedEncodingException e1) {
-			e1.printStackTrace();
 		}
 
 	}
