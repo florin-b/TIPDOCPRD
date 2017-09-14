@@ -204,6 +204,11 @@ public class Utils {
 			departaments.add("Materiale grele");
 		}
 
+		if (userDep.equals("DP19")) {
+			departaments.add("Hidroizolatii");
+			departaments.add("Gips");
+		}
+
 		if (userDep.equals("DP20")) {
 			departaments.add("Parchet");
 			departaments.add("Feronerie");
@@ -213,7 +218,7 @@ public class Utils {
 			departaments.add("Feronerie");
 			departaments.add("Instalatii");
 		}
-		
+
 		if (userDep.equals("DP29")) {
 			departaments.add("Feronerie");
 			departaments.add("Electrice");
@@ -223,7 +228,7 @@ public class Utils {
 			departaments.add("Lemnoase");
 			departaments.add("Gips");
 		}
-		
+
 		if (userDep.equals("DP37")) {
 			departaments.add("Chimice");
 			departaments.add("Materiale grele");
@@ -268,10 +273,21 @@ public class Utils {
 			departaments.add("Electrice");
 			departaments.add("Materiale grele");
 		}
+		
+		if (userDep.equals("DP46")) {
+			departaments.add("Materiale grele");
+			departaments.add("Gips");
+			departaments.add("Chimice");
+		}
 
 		String[] depArray = departaments.toArray(new String[departaments.size()]);
 
 		return depArray;
+	}
+
+	public static String[] getFiliale() {
+		return new String[] { "AG10", "BC10", "BH10", "BU10", "BU11", "BU12", "BU13", "BV10", "BZ10", "CJ10", "CT10",
+				"DJ10", "GL10", "HD10", "IS10", "MM10", "MS10", "NT10", "PH10", "SB10", "TM10", "VN10" };
 	}
 
 }

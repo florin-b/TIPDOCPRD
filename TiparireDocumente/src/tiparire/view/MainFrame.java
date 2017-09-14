@@ -137,6 +137,7 @@ public class MainFrame extends JFrame implements LogonListener, DepartamentListe
 			public void actionPerformed(ActionEvent e) {
 
 				departDialog.setDepartaments();
+				departDialog.setFiliale();
 				departDialog.setVisible(true);
 
 			}
@@ -207,6 +208,7 @@ public class MainFrame extends JFrame implements LogonListener, DepartamentListe
 			TipDocumentAfisat.getInstance().setNetiparit(true);
 			if (Utils.getDepartCode(UserInfo.getInstance().getDepart()).equals("00")) {
 				departDialog.setDepartaments();
+				departDialog.setFiliale();
 				departDialog.setVisible(true);
 
 			} else {

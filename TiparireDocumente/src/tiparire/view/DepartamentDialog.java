@@ -16,7 +16,6 @@ import javax.swing.JScrollPane;
 
 import javax.swing.border.Border;
 
-
 import tiparire.enums.EnumTipDocument;
 import tiparire.model.Database;
 import tiparire.model.TipDocumentAfisat;
@@ -29,6 +28,7 @@ public class DepartamentDialog extends JDialog implements DataListener {
 	private JButton okButton;
 	private JButton cancelButton;
 	private JList<Object> departamentList;
+	private JList<Object> filialeList;
 	private DepartamentListener departamentListener;
 
 	Database db;
@@ -46,6 +46,10 @@ public class DepartamentDialog extends JDialog implements DataListener {
 		departamentList = new JList<Object>();
 		departamentList.setMinimumSize(new Dimension(100, 100));
 		departamentList.setSize(new Dimension(100, 100));
+
+		filialeList = new JList<Object>();
+		filialeList.setMinimumSize(new Dimension(100, 100));
+		filialeList.setSize(new Dimension(100, 100));
 
 		setMinimumSize(new Dimension(220, 220));
 		setSize(220, 220);
@@ -66,6 +70,10 @@ public class DepartamentDialog extends JDialog implements DataListener {
 			public void actionPerformed(ActionEvent e) {
 
 				UserInfo.getInstance().setDepart(departamentList.getSelectedValue().toString());
+
+				if (filialeList.getSelectedValue() != null)
+					UserInfo.getInstance().setUnitLog(filialeList.getSelectedValue().toString());
+				
 				db.setDataListener(DepartamentDialog.this);
 
 				if (TipDocumentAfisat.getInstance().isNetiparit()) {
@@ -90,6 +98,8 @@ public class DepartamentDialog extends JDialog implements DataListener {
 
 		listPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 		listPanel.add(new JScrollPane(departamentList));
+
+		//listPanel.add(new JScrollPane(filialeList));
 
 		buttonsPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 		buttonsPanel.add(okButton);
@@ -120,6 +130,21 @@ public class DepartamentDialog extends JDialog implements DataListener {
 	public void setDepartaments() {
 		String[] userDepartaments = Utils.getUserDepartaments();
 		departamentList.setListData(userDepartaments);
+
+	}
+
+	public void setFiliale() {
+
+		if (filialeList != null) {
+
+			if (UserInfo.getInstance().getTipAcces() != null && UserInfo.getInstance().getTipAcces().equals("3")) {
+
+				String[] userFiliale = Utils.getFiliale();
+				filialeList.setListData(userFiliale);
+				filialeList.setVisible(true);
+			} else
+				filialeList.setVisible(false);
+		}
 
 	}
 

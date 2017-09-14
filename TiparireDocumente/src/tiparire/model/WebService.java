@@ -51,6 +51,34 @@ public class WebService {
 
 	}
 
+	
+	
+	public String getDocumenteTest(EnumTipDocument tipDocument) throws IOException, XmlPullParserException {
+
+		SoapObject request = new SoapObject(ConnectionStrings.getInstance().getNamespace(), "getDocumenteTEST");
+
+		request.addProperty("filiala", UserInfo.getInstance().getUnitLog());
+		request.addProperty("departament", Utils.getDepartCode(UserInfo.getInstance().getDepart()));
+		request.addProperty("tipDocument", tipDocument.toString());
+
+		SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+		envelope.dotNet = true;
+		envelope.setOutputSoapObject(request);
+		HttpTransportSE androidHttpTransport = new HttpTransportSE(ConnectionStrings.getInstance().getUrl(), 40000);
+		List<HeaderProperty> headerList = new ArrayList<HeaderProperty>();
+		headerList.add(new HeaderProperty("Authorization", "Basic "
+				+ org.kobjects.base64.Base64.encode("bflorin:bflorin".getBytes())));
+		androidHttpTransport
+				.call(ConnectionStrings.getInstance().getNamespace() + "getDocumenteTEST", envelope, headerList);
+		Object result = (Object) envelope.getResponse();
+		String response = result.toString();
+
+		return response;
+
+	}	
+	
+	
+	
 	public String getDocumente(EnumTipDocument tipDocument) throws IOException, XmlPullParserException {
 
 		SoapObject request = new SoapObject(ConnectionStrings.getInstance().getNamespace(), "getDocumente");
