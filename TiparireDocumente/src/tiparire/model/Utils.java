@@ -273,11 +273,27 @@ public class Utils {
 			departaments.add("Electrice");
 			departaments.add("Materiale grele");
 		}
-		
+
 		if (userDep.equals("DP46")) {
 			departaments.add("Materiale grele");
 			departaments.add("Gips");
 			departaments.add("Chimice");
+		}
+
+		if (userDep.equals("DP47")) {
+			departaments.add("Lemnoase");
+			departaments.add("Feronerie");
+			departaments.add("Parchet");
+			departaments.add("Electrice");
+			departaments.add("Instalatii");
+		}
+
+		if (userDep.equals("DP48")) {
+			departaments.add("Materiale grele");
+			departaments.add("Gips");
+			departaments.add("Chimice");
+			departaments.add("Hidroizolatii");
+
 		}
 
 		String[] depArray = departaments.toArray(new String[departaments.size()]);
