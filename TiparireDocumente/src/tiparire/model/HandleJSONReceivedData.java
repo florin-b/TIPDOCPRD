@@ -31,6 +31,7 @@ public class HandleJSONReceivedData {
 			userInfo.setNume(jsonObject.get("numeUser").toString());
 			userInfo.setUnitLog(getFiliala(userInfo.getFiliala()));
 			userInfo.setInitDepart(jsonObject.get("departament").toString());
+			userInfo.setDepozit(jsonObject.get("depozit").toString());
 
 		} catch (JSONException e) {
 
@@ -67,6 +68,9 @@ public class HandleJSONReceivedData {
 					unArticol.setPregatit(articolObject.getString("isPregatit").equals("1") ? true : false);
 					unArticol.setTiparit(articolObject.getString("isTiparit").equals("1") ? true : false);
 					unArticol.setTip(articolObject.getString("tip"));
+					unArticol.setDepozit(articolObject.getString("depozit"));
+					
+
 					objectsList.add(unArticol);
 
 				}
@@ -142,15 +146,15 @@ public class HandleJSONReceivedData {
 
 		if (numeFiliala.equals("CRAIOVA"))
 			fl = "DJ10";
-		
+
 		if (numeFiliala.equals("BUZAU"))
 			fl = "BZ10";
-		
+
 		if (numeFiliala.equals("SIBIU"))
 			fl = "SB10";
-		
+
 		if (numeFiliala.equals("DEVA"))
-			fl = "HD10";			
+			fl = "HD10";
 
 		return fl;
 

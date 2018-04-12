@@ -51,8 +51,6 @@ public class WebService {
 
 	}
 
-	
-	
 	public String getDocumenteTest(EnumTipDocument tipDocument) throws IOException, XmlPullParserException {
 
 		SoapObject request = new SoapObject(ConnectionStrings.getInstance().getNamespace(), "getDocumenteTEST");
@@ -68,17 +66,15 @@ public class WebService {
 		List<HeaderProperty> headerList = new ArrayList<HeaderProperty>();
 		headerList.add(new HeaderProperty("Authorization", "Basic "
 				+ org.kobjects.base64.Base64.encode("bflorin:bflorin".getBytes())));
-		androidHttpTransport
-				.call(ConnectionStrings.getInstance().getNamespace() + "getDocumenteTEST", envelope, headerList);
+		androidHttpTransport.call(ConnectionStrings.getInstance().getNamespace() + "getDocumenteTEST", envelope,
+				headerList);
 		Object result = (Object) envelope.getResponse();
 		String response = result.toString();
 
 		return response;
 
-	}	
-	
-	
-	
+	}
+
 	public String getDocumente(EnumTipDocument tipDocument) throws IOException, XmlPullParserException {
 
 		SoapObject request = new SoapObject(ConnectionStrings.getInstance().getNamespace(), "getDocumente");
@@ -86,6 +82,7 @@ public class WebService {
 		request.addProperty("filiala", UserInfo.getInstance().getUnitLog());
 		request.addProperty("departament", Utils.getDepartCode(UserInfo.getInstance().getDepart()));
 		request.addProperty("tipDocument", tipDocument.toString());
+		request.addProperty("depozit", UserInfo.getInstance().getDepozit());
 
 		SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
 		envelope.dotNet = true;
@@ -96,10 +93,9 @@ public class WebService {
 				+ org.kobjects.base64.Base64.encode("bflorin:bflorin".getBytes())));
 		androidHttpTransport
 				.call(ConnectionStrings.getInstance().getNamespace() + "getDocumente", envelope, headerList);
-		Object result = (Object) envelope.getResponse();
-		String response = result.toString();
+		Object result = envelope.getResponse();
 
-		return response;
+		return result.toString();
 
 	}
 
@@ -110,6 +106,7 @@ public class WebService {
 		request.addProperty("filiala", UserInfo.getInstance().getUnitLog());
 		request.addProperty("departament", Utils.getDepartCode(UserInfo.getInstance().getDepart()));
 		request.addProperty("dataTip", dataTip);
+		request.addProperty("depozit", UserInfo.getInstance().getDepozit());
 
 		SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
 		envelope.dotNet = true;

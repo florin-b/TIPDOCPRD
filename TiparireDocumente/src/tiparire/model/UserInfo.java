@@ -10,6 +10,7 @@ public class UserInfo {
 	private String tipAcces;
 	private String logonStatus;
 	private String initDepart;
+	private String depozit;
 
 	private static UserInfo instance = new UserInfo();
 
@@ -83,6 +84,14 @@ public class UserInfo {
 
 	public void setInitDepart(String initDepart) {
 		this.initDepart = initDepart;
+	}
+
+	public String getDepozit() {
+		return depozit;
+	}
+
+	public void setDepozit(String depozit) {
+		this.depozit = depozit;
 	}
 	
 	

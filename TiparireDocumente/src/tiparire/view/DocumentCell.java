@@ -167,7 +167,7 @@ public class DocumentCell extends AbstractCellEditor implements TableCellEditor,
 
 		setTextAlertEmitereDocument(document);
 
-		List<Articol> tempArticol = new LinkedList<Articol>();
+		List<Articol> tempArticol = new LinkedList<>();
 
 		for (int ii = 0; ii < Database.articol.size(); ii++) {
 			if (Database.articol.get(ii).getDocumentId().equals(document.getId())) {

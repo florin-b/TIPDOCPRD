@@ -107,8 +107,10 @@ public class CreateDocument {
 				builder.append(addSpace("Cantitate", 10));
 				builder.append("Um");
 				builder.append(addSpace("Um", 5));
+				builder.append("Depozit");
+				builder.append(addSpace("Depozit", 10));
 				builder.append(System.getProperty("line.separator"));
-				builder.append("-------------------------------------------------------------------------");
+				builder.append("-----------------------------------------------------------------------------------");
 				builder.append(System.getProperty("line.separator"));
 
 				StringBuilder lineBuilder = new StringBuilder();
@@ -133,6 +135,9 @@ public class CreateDocument {
 						lineBuilder.append(Database.articol.get(ii).getUm());
 						lineBuilder.append(addSpace(Database.articol.get(ii).getUm(), 5));
 
+						lineBuilder.append(Database.articol.get(ii).getDepozit());
+						lineBuilder.append(addSpace(Database.articol.get(ii).getDepozit(), 10));
+
 						lineBuilder.append(System.getProperty("line.separator"));
 
 						builder.append(lineBuilder);
@@ -141,7 +146,7 @@ public class CreateDocument {
 					}
 
 				}
-				builder.append("-------------------------------------------------------------------------");
+				builder.append("-----------------------------------------------------------------------------------");
 				builder.append(System.getProperty("line.separator"));
 				builder.append(System.getProperty("line.separator"));
 

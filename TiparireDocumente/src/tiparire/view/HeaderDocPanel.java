@@ -54,11 +54,12 @@ public class HeaderDocPanel extends JPanel {
 		artTable = new JTable(artTableModel);
 		artTable.setRowSelectionAllowed(false);
 
-		artTable.getColumnModel().getColumn(0).setPreferredWidth(40);
-		artTable.getColumnModel().getColumn(1).setPreferredWidth(400);
-		artTable.getColumnModel().getColumn(2).setPreferredWidth(100);
-		artTable.getColumnModel().getColumn(3).setPreferredWidth(70);
-		artTable.getColumnModel().getColumn(4).setPreferredWidth(50);
+		artTable.getColumnModel().getColumn(0).setPreferredWidth(20);
+		artTable.getColumnModel().getColumn(1).setPreferredWidth(300);
+		artTable.getColumnModel().getColumn(2).setPreferredWidth(80);
+		artTable.getColumnModel().getColumn(3).setPreferredWidth(60);
+		artTable.getColumnModel().getColumn(4).setPreferredWidth(30);
+		artTable.getColumnModel().getColumn(5).setPreferredWidth(70);
 
 		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
 		centerRenderer.setHorizontalAlignment(JLabel.CENTER);
@@ -66,6 +67,7 @@ public class HeaderDocPanel extends JPanel {
 		artTable.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
 		artTable.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
 		artTable.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
+		artTable.getColumnModel().getColumn(5).setCellRenderer(centerRenderer);
 
 		artTable.setBorder(BorderFactory.createEtchedBorder());
 
