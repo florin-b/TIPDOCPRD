@@ -216,11 +216,17 @@ public class HeaderDocPanel extends JPanel {
 	}
 
 	public void setNumeSofer(String numeSoferText) {
-		numeSofer.setText(numeSoferText);
+		if (!numeSoferText.trim().isEmpty())
+			numeSofer.setText("Sofer: " + numeSoferText);
+		else
+			numeSofer.setText(numeSoferText);
 	}
-	
+
 	public void setNrMasina(String nrMasinaText) {
-		nrMasina.setText(nrMasinaText);
+		if (!nrMasinaText.trim().isEmpty())
+			nrMasina.setText("Nr. auto: " + nrMasinaText);
+		else
+			nrMasina.setText(nrMasinaText);
 	}
 
 	public void setRownum(String rownum) {

@@ -94,6 +94,20 @@ public class CreateDocument {
 				builder.append(addSpace("Document:", 15));
 				builder.append(document.get(i).getId());
 
+				if (!document.get(i).getNumeSofer().trim().isEmpty()) {
+					builder.append(System.getProperty("line.separator"));
+					builder.append("Sofer:");
+					builder.append(addSpace("Sofer:", 15));
+					builder.append(document.get(i).getNumeSofer());
+				}
+
+				if (!document.get(i).getNrMasina().trim().isEmpty()) {
+					builder.append(System.getProperty("line.separator"));
+					builder.append("Masina:");
+					builder.append(addSpace("Masina:", 15));
+					builder.append(document.get(i).getNrMasina());
+				}
+
 				builder.append(System.getProperty("line.separator"));
 				builder.append(System.getProperty("line.separator"));
 
