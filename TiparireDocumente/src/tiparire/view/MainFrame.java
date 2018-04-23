@@ -5,8 +5,9 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
-import java.util.Locale;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
@@ -24,6 +25,11 @@ import tiparire.model.EnumLogonStatus;
 import tiparire.model.TipDocumentAfisat;
 import tiparire.model.UserInfo;
 import tiparire.model.Utils;
+import tiparire.sorting.ClientComparator;
+import tiparire.sorting.DataComparator;
+import tiparire.sorting.DocumentChainedComparator;
+import tiparire.sorting.NrMasinaComparator;
+import tiparire.sorting.SoferComparator;
 
 public class MainFrame extends JFrame implements LogonListener, DepartamentListener, DataListener, ToolbarListener,
 		PrintListener, TipDocumentListener, SelectAllItemsListener {
@@ -39,9 +45,9 @@ public class MainFrame extends JFrame implements LogonListener, DepartamentListe
 	CreateDocument doc;
 	Database db;
 
-	
-	
 	private EnumTipDocument tipDocument = EnumTipDocument.TRANSFER;
+
+	private JRadioButtonMenuItem rbMenuSortData;
 
 	public MainFrame() {
 
@@ -92,6 +98,7 @@ public class MainFrame extends JFrame implements LogonListener, DepartamentListe
 		JMenu actionMenu = new JMenu("Actiuni");
 		JMenu displayMenu = new JMenu("Afiseaza");
 		JMenu tipDocMenu = new JMenu("Tip document");
+		JMenu tipDocSort = new JMenu("Ordoneaza");
 
 		JMenuItem departItem = new JMenuItem("Departament");
 		JMenuItem exitItem = new JMenuItem("Iesire");
@@ -112,11 +119,27 @@ public class MainFrame extends JFrame implements LogonListener, DepartamentListe
 		tipDocMenu.add(rbMenuDistrib);
 		tipDocMenu.add(rbMenuToate);
 
+		rbMenuSortData = new JRadioButtonMenuItem("Data");
+		rbMenuSortData.setSelected(true);
+
+		JRadioButtonMenuItem rbMenuSortSofer = new JRadioButtonMenuItem("Sofer");
+		JRadioButtonMenuItem rbMenuSortMasina = new JRadioButtonMenuItem("Masina");
+
+		ButtonGroup groupSort = new ButtonGroup();
+		groupSort.add(rbMenuSortData);
+		groupSort.add(rbMenuSortSofer);
+		groupSort.add(rbMenuSortMasina);
+
+		tipDocSort.add(rbMenuSortData);
+		tipDocSort.add(rbMenuSortSofer);
+		tipDocSort.add(rbMenuSortMasina);
+
 		actionMenu.add(departItem);
 		actionMenu.add(exitItem);
 		menuBar.add(actionMenu);
 		menuBar.add(displayMenu);
 		menuBar.add(tipDocMenu);
+		menuBar.add(tipDocSort);
 
 		JMenuItem tipDocItem = new JMenuItem("Documente");
 		displayMenu.add(tipDocItem);
@@ -130,6 +153,10 @@ public class MainFrame extends JFrame implements LogonListener, DepartamentListe
 		setMenuTransfListener(rbMenuTransf);
 		setMenuDistribListener(rbMenuDistrib);
 		setMenuToateListener(rbMenuToate);
+
+		setMenuSortData(rbMenuSortData);
+		setMenuSortSofer(rbMenuSortSofer);
+		setMenuSortMasina(rbMenuSortMasina);
 
 		exitItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, ActionEvent.CTRL_MASK));
 
@@ -199,6 +226,75 @@ public class MainFrame extends JFrame implements LogonListener, DepartamentListe
 		});
 	}
 
+	private void setMenuSortData(JRadioButtonMenuItem rbMenuItem) {
+		rbMenuItem.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Data sort");
+
+				List<Document> documente = db.getDocumente();
+
+				Comparator[] comparators = new Comparator[] { new DataComparator() };
+
+				DocumentChainedComparator<Document> chainedComparators = new DocumentChainedComparator<Document>(
+						comparators);
+
+				Collections.sort(documente, chainedComparators);
+
+				tablePanel.setData(documente);
+				tablePanel.autoresizeTableRowHeight();
+
+			}
+		});
+	}
+
+	private void setMenuSortSofer(JRadioButtonMenuItem rbMenuItem) {
+		rbMenuItem.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Sofer sort");
+
+				List<Document> documente = db.getDocumente();
+
+				Comparator[] comparators = new Comparator[] { new SoferComparator() };
+
+				DocumentChainedComparator<Document> chainedComparators = new DocumentChainedComparator<Document>(
+						comparators);
+
+				Collections.sort(documente, chainedComparators);
+
+				tablePanel.setData(documente);
+				tablePanel.autoresizeTableRowHeight();
+
+			}
+		});
+	}
+
+	private void setMenuSortMasina(JRadioButtonMenuItem rbMenuItem) {
+		rbMenuItem.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Masina sort");
+
+				List<Document> documente = db.getDocumente();
+
+				Comparator[] comparators = new Comparator[] { new NrMasinaComparator() };
+
+				DocumentChainedComparator<Document> chainedComparators = new DocumentChainedComparator<Document>(
+						comparators);
+
+				Collections.sort(documente, chainedComparators);
+
+				tablePanel.setData(documente);
+				tablePanel.autoresizeTableRowHeight();
+
+			}
+		});
+	}
+
 	public void logonSucceeded() {
 
 		if (UserInfo.getInstance().getLogonStatus().equals("Status_3")) {
@@ -245,6 +341,9 @@ public class MainFrame extends JFrame implements LogonListener, DepartamentListe
 	}
 
 	public void dataReceived() {
+
+		rbMenuSortData.setSelected(true);
+
 		tablePanel.setData(db.getDocumente());
 		tablePanel.autoresizeTableRowHeight();
 

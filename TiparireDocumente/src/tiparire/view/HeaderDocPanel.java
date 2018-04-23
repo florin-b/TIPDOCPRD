@@ -32,6 +32,9 @@ public class HeaderDocPanel extends JPanel {
 	private JLabel client;
 	private JLabel dataEmitere;
 
+	private JLabel numeSofer;
+	private JLabel nrMasina;
+
 	private JPanel headerPanel;
 	private JPanel artPanel;
 	private JLabel rowNumLabel;
@@ -90,8 +93,6 @@ public class HeaderDocPanel extends JPanel {
 		alertaEmitere = new JLabel();
 		alertaEmitere.setFont(new Font("Arial", Font.BOLD, 15));
 		alertaEmitere.setForeground(Color.RED);
-		
-		
 
 		client = new JLabel();
 		client.setFont(new Font("Arial", Font.BOLD, 18));
@@ -100,6 +101,14 @@ public class HeaderDocPanel extends JPanel {
 		dataEmitere = new JLabel();
 		dataEmitere.setFont(new Font("Helvetica", Font.PLAIN, 14));
 		dataEmitere.setForeground(new Color(97, 128, 97));
+
+		numeSofer = new JLabel();
+		numeSofer.setFont(new Font("Helvetica", Font.PLAIN, 14));
+		numeSofer.setForeground(new Color(211, 34, 64));
+
+		nrMasina = new JLabel();
+		nrMasina.setFont(new Font("Helvetica", Font.PLAIN, 14));
+		nrMasina.setForeground(new Color(211, 34, 64));
 
 		rowNumLabel = new JLabel();
 
@@ -144,6 +153,30 @@ public class HeaderDocPanel extends JPanel {
 		gc.anchor = GridBagConstraints.FIRST_LINE_START;
 		headerPanel.add(nrDocument, gc);
 
+		// //////////////////////////////////////////
+
+		gc.gridy++;
+
+		gc.weightx = 1;
+		gc.weighty = 0.2;
+
+		gc.gridx = 1;
+		gc.insets = new Insets(2, 20, 0, 0);
+		gc.anchor = GridBagConstraints.FIRST_LINE_START;
+		headerPanel.add(numeSofer, gc);
+
+		// //////////////////////////////////////////
+
+		gc.gridy++;
+
+		gc.weightx = 1;
+		gc.weighty = 0.2;
+
+		gc.gridx = 1;
+		gc.insets = new Insets(2, 20, 0, 0);
+		gc.anchor = GridBagConstraints.FIRST_LINE_START;
+		headerPanel.add(nrMasina, gc);
+
 		int spaceCount = 5;
 		Border spaceCountBorder = BorderFactory.createEmptyBorder(spaceCount, spaceCount, spaceCount, spaceCount);
 		headerPanel.setBorder(spaceCountBorder);
@@ -180,6 +213,14 @@ public class HeaderDocPanel extends JPanel {
 
 	public void setEmitere(String emitereText) {
 		dataEmitere.setText(emitereText);
+	}
+
+	public void setNumeSofer(String numeSoferText) {
+		numeSofer.setText(numeSoferText);
+	}
+	
+	public void setNrMasina(String nrMasinaText) {
+		nrMasina.setText(nrMasinaText);
 	}
 
 	public void setRownum(String rownum) {

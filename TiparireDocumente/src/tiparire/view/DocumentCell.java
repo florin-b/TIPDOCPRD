@@ -164,7 +164,9 @@ public class DocumentCell extends AbstractCellEditor implements TableCellEditor,
 		docPanel.setClient(document.getClient());
 		docPanel.setEmitere(document.getDataEmiterii());
 		docPanel.setRownum(String.valueOf(row + 1));
-
+		docPanel.setNumeSofer(document.getNumeSofer());
+		docPanel.setNrMasina(document.getNrMasina());
+		
 		setTextAlertEmitereDocument(document);
 
 		List<Articol> tempArticol = new LinkedList<>();

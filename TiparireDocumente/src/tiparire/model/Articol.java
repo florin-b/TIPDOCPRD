@@ -14,6 +14,8 @@ public class Articol {
 	private boolean isTiparit;
 	private String tip;
 	private String depozit;
+	private String numeSofer;
+	private String nrMasina;
 
 	public Articol() {
 
@@ -132,5 +134,20 @@ public class Articol {
 		this.depozit = depozit;
 	}
 
-	
+	public String getNumeSofer() {
+		return numeSofer;
+	}
+
+	public void setNumeSofer(String numeSofer) {
+		this.numeSofer = numeSofer;
+	}
+
+	public String getNrMasina() {
+		return nrMasina;
+	}
+
+	public void setNrMasina(String nrMasina) {
+		this.nrMasina = nrMasina;
+	}
+
 }

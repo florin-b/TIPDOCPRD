@@ -69,7 +69,8 @@ public class HandleJSONReceivedData {
 					unArticol.setTiparit(articolObject.getString("isTiparit").equals("1") ? true : false);
 					unArticol.setTip(articolObject.getString("tip"));
 					unArticol.setDepozit(articolObject.getString("depozit"));
-					
+					unArticol.setNumeSofer(articolObject.getString("numeSofer"));
+					unArticol.setNrMasina(articolObject.getString("nrMasina"));
 
 					objectsList.add(unArticol);
 
