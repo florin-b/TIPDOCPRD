@@ -166,8 +166,9 @@ public class DocumentCell extends AbstractCellEditor implements TableCellEditor,
 		docPanel.setRownum(String.valueOf(row + 1));
 		docPanel.setNumeSofer(document.getNumeSofer());
 		docPanel.setNrMasina(document.getNrMasina());
-		
+
 		setTextAlertEmitereDocument(document);
+		setTextInfoStatus(document);
 
 		List<Articol> tempArticol = new LinkedList<>();
 
@@ -197,6 +198,10 @@ public class DocumentCell extends AbstractCellEditor implements TableCellEditor,
 			docPanel.setAlertEmitereText(textAlert);
 		else
 			docPanel.setAlertEmitereText("");
+	}
+
+	private void setTextInfoStatus(Document document) {
+		docPanel.setTextInfoStatus(document.getInfoStatus());
 	}
 
 	public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {

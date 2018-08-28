@@ -11,7 +11,7 @@ public class AlertaEmitere {
 	public int getAlertaEmitere(Document document) {
 
 		int nrOre = 0;
-		SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy HH:mm", Locale.US);
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy HH:mm", new Locale("ro"));
 		try {
 
 			long diff = getStopProgram(document.getFiliala(), new Date()).getTime()

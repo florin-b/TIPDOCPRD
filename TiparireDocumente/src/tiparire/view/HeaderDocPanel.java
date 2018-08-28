@@ -7,21 +7,19 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 import java.util.List;
 
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
+
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
+
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.Border;
 import javax.swing.table.DefaultTableCellRenderer;
 
-import tiparire.model.AlertaEmitere;
 import tiparire.model.Articol;
 import tiparire.model.Document;
 
@@ -43,6 +41,7 @@ public class HeaderDocPanel extends JPanel {
 	private ArticolTableModel artTableModel;
 
 	private JLabel alertaEmitere;
+	private JLabel infoStatus;
 
 	public HeaderDocPanel(Document document) {
 
@@ -60,9 +59,11 @@ public class HeaderDocPanel extends JPanel {
 		artTable.getColumnModel().getColumn(0).setPreferredWidth(20);
 		artTable.getColumnModel().getColumn(1).setPreferredWidth(300);
 		artTable.getColumnModel().getColumn(2).setPreferredWidth(80);
-		artTable.getColumnModel().getColumn(3).setPreferredWidth(60);
+		artTable.getColumnModel().getColumn(3).setPreferredWidth(100);
 		artTable.getColumnModel().getColumn(4).setPreferredWidth(30);
 		artTable.getColumnModel().getColumn(5).setPreferredWidth(70);
+		artTable.getColumnModel().getColumn(6).setPreferredWidth(100);
+		artTable.getColumnModel().getColumn(7).setPreferredWidth(100);
 
 		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
 		centerRenderer.setHorizontalAlignment(JLabel.CENTER);
@@ -71,6 +72,8 @@ public class HeaderDocPanel extends JPanel {
 		artTable.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
 		artTable.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
 		artTable.getColumnModel().getColumn(5).setCellRenderer(centerRenderer);
+		artTable.getColumnModel().getColumn(6).setCellRenderer(centerRenderer);
+		artTable.getColumnModel().getColumn(7).setCellRenderer(centerRenderer);
 
 		artTable.setBorder(BorderFactory.createEtchedBorder());
 
@@ -93,6 +96,10 @@ public class HeaderDocPanel extends JPanel {
 		alertaEmitere = new JLabel();
 		alertaEmitere.setFont(new Font("Arial", Font.BOLD, 15));
 		alertaEmitere.setForeground(Color.RED);
+
+		infoStatus = new JLabel();
+		infoStatus.setFont(new Font("Arial", Font.BOLD, 15));
+		infoStatus.setForeground(Color.DARK_GRAY);
 
 		client = new JLabel();
 		client.setFont(new Font("Arial", Font.BOLD, 18));
@@ -182,7 +189,9 @@ public class HeaderDocPanel extends JPanel {
 		headerPanel.setBorder(spaceCountBorder);
 
 		JPanel alertPanel = new JPanel();
-		alertPanel.add(alertaEmitere);
+		alertPanel.setLayout(new BorderLayout());
+		alertPanel.add(alertaEmitere, BorderLayout.NORTH);
+		alertPanel.add(infoStatus, BorderLayout.SOUTH);
 		alertPanel.setBorder(spaceCountBorder);
 
 		JPanel headerContainer = new JPanel();
@@ -241,6 +250,10 @@ public class HeaderDocPanel extends JPanel {
 
 	public void setAlertEmitereText(String alertText) {
 		alertaEmitere.setText(alertText);
+	}
+
+	public void setTextInfoStatus(String strStatus) {
+		infoStatus.setText(strStatus);
 	}
 
 }

@@ -16,13 +16,17 @@ public class Articol {
 	private String depozit;
 	private String numeSofer;
 	private String nrMasina;
+	private String modificare;
+	private String cantitateModificata;
+	private String infoStatus;
 
 	public Articol() {
 
 	}
 
 	public Articol(String documentId, String client, String emitere, String cod, String nume, String cantitate,
-			String um, String pozitie, boolean isPregatit, boolean isTiparit, String tip, String depozit) {
+			String um, String pozitie, boolean isPregatit, boolean isTiparit, String tip, String depozit,
+			String modificare, String cantitateModificata, String infoStatus) {
 		super();
 		this.documentId = documentId;
 		this.client = client;
@@ -36,6 +40,9 @@ public class Articol {
 		this.isTiparit = isTiparit;
 		this.tip = tip;
 		this.depozit = depozit;
+		this.modificare = modificare;
+		this.cantitateModificata = cantitateModificata;
+		this.infoStatus = infoStatus;
 	}
 
 	public String getDocumentId() {
@@ -148,6 +155,30 @@ public class Articol {
 
 	public void setNrMasina(String nrMasina) {
 		this.nrMasina = nrMasina;
+	}
+
+	public String getModificare() {
+		return modificare;
+	}
+
+	public void setModificare(String modificare) {
+		this.modificare = modificare;
+	}
+
+	public String getCantitateModificata() {
+		return cantitateModificata;
+	}
+
+	public void setCantitateModificata(String cantitateModificata) {
+		this.cantitateModificata = cantitateModificata;
+	}
+
+	public String getInfoStatus() {
+		return infoStatus;
+	}
+
+	public void setInfoStatus(String infoStatus) {
+		this.infoStatus = infoStatus;
 	}
 
 }

@@ -117,14 +117,18 @@ public class CreateDocument {
 				builder.append(addSpace("Nume", 45));
 				builder.append("Cod");
 				builder.append(addSpace("Cod", 10));
-				builder.append("Cantitate");
-				builder.append(addSpace("Cantitate", 10));
+				builder.append("Cant. initiala");
+				builder.append(addSpace("Cant. initiala", 17));
 				builder.append("Um");
 				builder.append(addSpace("Um", 5));
 				builder.append("Depozit");
 				builder.append(addSpace("Depozit", 10));
+				builder.append("Cant. modificata");
+				builder.append(addSpace("Cant. modificata", 18));				
+				builder.append("Modificari");
+				builder.append(addSpace("Modificari", 10));
 				builder.append(System.getProperty("line.separator"));
-				builder.append("-----------------------------------------------------------------------------------");
+				builder.append("--------------------------------------------------------------------------------------------------------------------------");
 				builder.append(System.getProperty("line.separator"));
 
 				StringBuilder lineBuilder = new StringBuilder();
@@ -142,16 +146,23 @@ public class CreateDocument {
 						lineBuilder.append(Database.articol.get(ii).getCod());
 						lineBuilder.append(addSpace(Database.articol.get(ii).getCod(), 10));
 
-						lineBuilder.append(addSpace(Database.articol.get(ii).getCantitate(), 9));
+						lineBuilder.append(addSpace(Database.articol.get(ii).getCantitate(), 14));
 						lineBuilder.append(Database.articol.get(ii).getCantitate());
 						lineBuilder.append(addSpace("i", 2));
 
 						lineBuilder.append(Database.articol.get(ii).getUm());
-						lineBuilder.append(addSpace(Database.articol.get(ii).getUm(), 5));
+						lineBuilder.append(addSpace(Database.articol.get(ii).getUm(), 7));
 
 						lineBuilder.append(Database.articol.get(ii).getDepozit());
 						lineBuilder.append(addSpace(Database.articol.get(ii).getDepozit(), 10));
 
+						lineBuilder.append(addSpace(Database.articol.get(ii).getCantitateModificata(), 16));
+						lineBuilder.append(Database.articol.get(ii).getCantitateModificata());
+						lineBuilder.append(addSpace("i", 3));						
+						
+						lineBuilder.append(Database.articol.get(ii).getModificare());
+						lineBuilder.append(addSpace(Database.articol.get(ii).getModificare(), 10));
+						
 						lineBuilder.append(System.getProperty("line.separator"));
 
 						builder.append(lineBuilder);
@@ -160,7 +171,7 @@ public class CreateDocument {
 					}
 
 				}
-				builder.append("-----------------------------------------------------------------------------------");
+				builder.append("--------------------------------------------------------------------------------------------------");
 				builder.append(System.getProperty("line.separator"));
 				builder.append(System.getProperty("line.separator"));
 

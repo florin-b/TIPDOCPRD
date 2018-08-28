@@ -17,10 +17,10 @@ public class ArticolTableModel extends AbstractTableModel {
 		
 	}
 	
-	private String[] colNames = { "Nr.", "Nume articol", "Cod articol", "Cantitate", "Um", "Depozit" };
+	private String[] colNames = { "Nr.", "Nume articol", "Cod articol", "Cant. initiala", "Um", "Depozit", "Cant. modificata", "Modificari" };
 
 	public int getColumnCount() {
-		return 6;
+		return colNames.length;
 	}
 
 	public int getRowCount() {
@@ -56,6 +56,10 @@ public class ArticolTableModel extends AbstractTableModel {
 			return art.getUm();
 		case 5:
 			return art.getDepozit();
+		case 6:
+			return art.getCantitateModificata();			
+		case 7:
+			return art.getModificare();
 		}
 
 		return null;

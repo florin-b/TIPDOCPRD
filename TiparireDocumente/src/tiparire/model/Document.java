@@ -20,13 +20,15 @@ public class Document implements KvmSerializable, Serializable {
 	private String tip;
 	private String numeSofer;
 	private String nrMasina;
+	private String infoStatus;
 
 	public Document() {
 
 	}
 
 	public Document(String id, String dataEmiterii, String client, String departament, String filiala,
-			String seTipareste, boolean marfaPregatita, boolean isTiparit, String tip, String numeSofer, String nrMasina) {
+			String seTipareste, boolean marfaPregatita, boolean isTiparit, String tip, String numeSofer,
+			String nrMasina, String infoStatus) {
 		super();
 		this.id = id;
 		this.dataEmitere = dataEmiterii;
@@ -39,6 +41,7 @@ public class Document implements KvmSerializable, Serializable {
 		this.tip = tip;
 		this.numeSofer = numeSofer;
 		this.nrMasina = nrMasina;
+		this.infoStatus = infoStatus;
 	}
 
 	public String getId() {
@@ -133,6 +136,14 @@ public class Document implements KvmSerializable, Serializable {
 		this.nrMasina = nrMasina;
 	}
 
+	public String getInfoStatus() {
+		return infoStatus;
+	}
+
+	public void setInfoStatus(String infoStatus) {
+		this.infoStatus = infoStatus;
+	}
+
 	public Object getProperty(int arg0) {
 		switch (arg0) {
 		case 0:
@@ -155,6 +166,8 @@ public class Document implements KvmSerializable, Serializable {
 			return numeSofer;
 		case 9:
 			return nrMasina;
+		case 10:
+			return infoStatus;
 
 		}
 		return null;
@@ -207,6 +220,11 @@ public class Document implements KvmSerializable, Serializable {
 			info.type = PropertyInfo.STRING_CLASS;
 			info.name = "nrMasina";
 			break;
+		case 10:
+			info.type = PropertyInfo.STRING_CLASS;
+			info.name = "infoStatus";
+			break;
+
 		default:
 			break;
 

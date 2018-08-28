@@ -42,7 +42,7 @@ public class HandleJSONReceivedData {
 
 	public ArrayList<Articol> decodeDocumentData() {
 		Articol unArticol = null;
-		ArrayList<Articol> objectsList = new ArrayList<Articol>();
+		ArrayList<Articol> objectsList = new ArrayList<>();
 
 		try {
 
@@ -71,7 +71,10 @@ public class HandleJSONReceivedData {
 					unArticol.setDepozit(articolObject.getString("depozit"));
 					unArticol.setNumeSofer(articolObject.getString("numeSofer"));
 					unArticol.setNrMasina(articolObject.getString("nrMasina"));
-
+					unArticol.setModificare(articolObject.getString("modificare"));
+					unArticol.setCantitateModificata(articolObject.getString("cantitateModificata")==null ? "" : articolObject.getString("cantitateModificata"));
+					unArticol.setInfoStatus(articolObject.getString("infoStatus") == null ? "": articolObject.getString("infoStatus"));
+					
 					objectsList.add(unArticol);
 
 				}
