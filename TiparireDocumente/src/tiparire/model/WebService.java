@@ -78,6 +78,8 @@ public class WebService {
 	public String getDocumente(EnumTipDocument tipDocument) throws IOException, XmlPullParserException {
 
 		SoapObject request = new SoapObject(ConnectionStrings.getInstance().getNamespace(), "getDocumente");
+		
+		//SoapObject request = new SoapObject(ConnectionStrings.getInstance().getNamespace(), "getDocumenteBeta");
 
 		request.addProperty("filiala", UserInfo.getInstance().getUnitLog());
 		request.addProperty("departament", Utils.getDepartCode(UserInfo.getInstance().getDepart()));
@@ -87,7 +89,7 @@ public class WebService {
 		SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
 		envelope.dotNet = true;
 		envelope.setOutputSoapObject(request);
-		HttpTransportSE androidHttpTransport = new HttpTransportSE(ConnectionStrings.getInstance().getUrl(), 40000);
+		HttpTransportSE androidHttpTransport = new HttpTransportSE(ConnectionStrings.getInstance().getUrl(), 120000);
 		List<HeaderProperty> headerList = new ArrayList<HeaderProperty>();
 		headerList.add(new HeaderProperty("Authorization", "Basic "
 				+ org.kobjects.base64.Base64.encode("bflorin:bflorin".getBytes())));
@@ -157,6 +159,8 @@ public class WebService {
 			throws IOException, XmlPullParserException {
 
 		SoapObject request = new SoapObject(ConnectionStrings.getInstance().getNamespace(), "setMarfaPregatita");
+		
+		//SoapObject request = new SoapObject(ConnectionStrings.getInstance().getNamespace(), "setMarfaPregatitaBeta");
 
 		request.addProperty("nrDocument", nrDocument);
 		request.addProperty("gestionar", gestionar);

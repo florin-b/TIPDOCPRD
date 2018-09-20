@@ -59,11 +59,11 @@ public class HeaderDocPanel extends JPanel {
 		artTable.getColumnModel().getColumn(0).setPreferredWidth(20);
 		artTable.getColumnModel().getColumn(1).setPreferredWidth(300);
 		artTable.getColumnModel().getColumn(2).setPreferredWidth(80);
-		artTable.getColumnModel().getColumn(3).setPreferredWidth(100);
-		artTable.getColumnModel().getColumn(4).setPreferredWidth(30);
-		artTable.getColumnModel().getColumn(5).setPreferredWidth(70);
-		artTable.getColumnModel().getColumn(6).setPreferredWidth(100);
-		artTable.getColumnModel().getColumn(7).setPreferredWidth(100);
+		artTable.getColumnModel().getColumn(3).setPreferredWidth(75);
+		artTable.getColumnModel().getColumn(4).setPreferredWidth(40);
+		artTable.getColumnModel().getColumn(5).setPreferredWidth(50);
+		artTable.getColumnModel().getColumn(6).setPreferredWidth(75);
+		artTable.getColumnModel().getColumn(7).setPreferredWidth(130);
 
 		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
 		centerRenderer.setHorizontalAlignment(JLabel.CENTER);

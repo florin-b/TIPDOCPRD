@@ -60,7 +60,6 @@ public class Database implements ProgressDialogListener {
 				try {
 					WebService service = new WebService();
 					docResult = service.getDocumente(tipDocument);
-					
 
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -201,13 +200,15 @@ public class Database implements ProgressDialogListener {
 				for (int j = 0; j < documente.size(); j++) {
 					if (articol.get(i).getDocumentId().equals(documente.get(j).getId())) {
 						docFound = true;
+
 					}
 				}
 
 				if (!docFound) {
 					Document unDocument = new Document(articol.get(i).getDocumentId(), articol.get(i).getEmitere(),
 							articol.get(i).getClient(), "00", "00", "0", articol.get(i).isPregatit(), articol.get(i)
-									.isTiparit(), articol.get(i).getTip(), articol.get(i).getNumeSofer(), articol.get(i).getNrMasina(), articol.get(i).getInfoStatus());
+									.isTiparit(), articol.get(i).getTip(), articol.get(i).getNumeSofer(), articol
+									.get(i).getNrMasina(), getStatusDocument(articol, articol.get(i).getDocumentId()));
 					documente.add(unDocument);
 				}
 
@@ -215,6 +216,22 @@ public class Database implements ProgressDialogListener {
 
 		}
 
+	}
+
+	private String getStatusDocument(List<Articol> listArticole, String documentId) {
+		String status = "";
+
+		for (Articol articol : listArticole) {
+			if (articol.getDocumentId().equals(documentId)) {
+				if (!articol.getInfoStatus().isEmpty()) {
+					status = articol.getInfoStatus();
+					break;
+				}
+			}
+
+		}
+
+		return status;
 	}
 
 	public List<Document> getDocumente() {
