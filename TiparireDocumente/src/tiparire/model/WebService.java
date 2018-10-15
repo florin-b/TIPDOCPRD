@@ -78,8 +78,6 @@ public class WebService {
 	public String getDocumente(EnumTipDocument tipDocument) throws IOException, XmlPullParserException {
 
 		SoapObject request = new SoapObject(ConnectionStrings.getInstance().getNamespace(), "getDocumente");
-		
-		//SoapObject request = new SoapObject(ConnectionStrings.getInstance().getNamespace(), "getDocumenteBeta");
 
 		request.addProperty("filiala", UserInfo.getInstance().getUnitLog());
 		request.addProperty("departament", Utils.getDepartCode(UserInfo.getInstance().getDepart()));
@@ -159,12 +157,14 @@ public class WebService {
 			throws IOException, XmlPullParserException {
 
 		SoapObject request = new SoapObject(ConnectionStrings.getInstance().getNamespace(), "setMarfaPregatita");
-		
-		//SoapObject request = new SoapObject(ConnectionStrings.getInstance().getNamespace(), "setMarfaPregatitaBeta");
 
+		boolean isDocAnulat = document.getInfoStatus()!= null && document.getInfoStatus().contains("stearsa");
+		
 		request.addProperty("nrDocument", nrDocument);
 		request.addProperty("gestionar", gestionar);
 		request.addProperty("isMarfaPreg", isMarfaPregatita);
+		request.addProperty("isDocAnulat", isDocAnulat);
+		
 
 		SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
 		envelope.dotNet = true;

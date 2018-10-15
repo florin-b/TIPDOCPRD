@@ -8,6 +8,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -150,14 +151,30 @@ public class DocumentCell extends AbstractCellEditor implements TableCellEditor,
 			printButton.setText("Selecteaza");
 		}
 
-		if (document.isMarfaPregatita()) {
-			isMarfaPregatita = true;
-			marfaPregatitaBtn.setBackground(new Color(238, 238, 238));
-			marfaPregatitaBtn.setText("Anuleaza pregatire");
+		if (document.getInfoStatus().contains("stearsa")) {
+
+			if (!document.isMarfaPregatita()) {
+				isMarfaPregatita = false;
+				marfaPregatitaBtn.setBackground(Color.ORANGE);
+				marfaPregatitaBtn.setText("Retur marfa");
+			} else {
+				isMarfaPregatita = true;
+				marfaPregatitaBtn.setBackground(new Color(238, 238, 238));
+				marfaPregatitaBtn.setText("Anuleaza retur marfa");
+
+			}
+
 		} else {
-			isMarfaPregatita = false;
-			marfaPregatitaBtn.setBackground(Color.ORANGE);
-			marfaPregatitaBtn.setText("Marfa pregatita");
+
+			if (document.isMarfaPregatita()) {
+				isMarfaPregatita = true;
+				marfaPregatitaBtn.setBackground(new Color(238, 238, 238));
+				marfaPregatitaBtn.setText("Anuleaza pregatire");
+			} else {
+				isMarfaPregatita = false;
+				marfaPregatitaBtn.setBackground(Color.ORANGE);
+				marfaPregatitaBtn.setText("Marfa pregatita");
+			}
 		}
 
 		docPanel.setDocument(document.getId());

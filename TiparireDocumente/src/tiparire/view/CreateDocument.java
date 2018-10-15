@@ -107,6 +107,13 @@ public class CreateDocument {
 					builder.append(addSpace("Masina:", 15));
 					builder.append(document.get(i).getNrMasina());
 				}
+				
+				if (!document.get(i).getInfoStatus().trim().isEmpty()) {
+					builder.append(System.getProperty("line.separator"));
+					builder.append("Stare:");
+					builder.append(addSpace("Stare:", 15));
+					builder.append(document.get(i).getInfoStatus());
+				}
 
 				builder.append(System.getProperty("line.separator"));
 				builder.append(System.getProperty("line.separator"));
@@ -128,7 +135,7 @@ public class CreateDocument {
 				builder.append("Modificari");
 				builder.append(addSpace("Modificari", 10));
 				builder.append(System.getProperty("line.separator"));
-				builder.append("--------------------------------------------------------------------------------------------------------------------------");
+				builder.append("---------------------------------------------------------------------------------------------------------------------------");
 				builder.append(System.getProperty("line.separator"));
 
 				StringBuilder lineBuilder = new StringBuilder();
@@ -171,7 +178,7 @@ public class CreateDocument {
 					}
 
 				}
-				builder.append("--------------------------------------------------------------------------------------------------");
+				builder.append("---------------------------------------------------------------------------------------------------------------------------");
 				builder.append(System.getProperty("line.separator"));
 				builder.append(System.getProperty("line.separator"));
 
