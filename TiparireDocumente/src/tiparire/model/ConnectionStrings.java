@@ -12,9 +12,6 @@ public class ConnectionStrings {
 		 myUrl = "http://10.1.0.58/AndroidWebServices/TiparireService.asmx";
 		 myNamespace = "http://tiparire.org/";
 
-		//myUrl = "http://10.1.0.58/AndroidWebServices/TiparireServiceTest.asmx";
-		//myNamespace = "http://tiparireTest.org/";
-
 	}
 
 	public static ConnectionStrings getInstance() {

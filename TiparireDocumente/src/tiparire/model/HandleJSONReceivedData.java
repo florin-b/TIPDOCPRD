@@ -7,6 +7,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import tiparire.enums.EnumTipTransport;
+
 public class HandleJSONReceivedData {
 
 	private String JsonString;
@@ -72,9 +74,12 @@ public class HandleJSONReceivedData {
 					unArticol.setNumeSofer(articolObject.getString("numeSofer"));
 					unArticol.setNrMasina(articolObject.getString("nrMasina"));
 					unArticol.setModificare(articolObject.getString("modificare"));
-					unArticol.setCantitateModificata(articolObject.getString("cantitateModificata")==null ? "" : articolObject.getString("cantitateModificata"));
-					unArticol.setInfoStatus(articolObject.getString("infoStatus") == null ? "": articolObject.getString("infoStatus"));
-					
+					unArticol.setCantitateModificata(articolObject.getString("cantitateModificata") == null ? ""
+							: articolObject.getString("cantitateModificata"));
+					unArticol.setInfoStatus(articolObject.getString("infoStatus") == null ? "" : articolObject
+							.getString("infoStatus"));
+					unArticol.setTipTransport(EnumTipTransport.valueOf(articolObject.getString("tipTransport")));
+
 					objectsList.add(unArticol);
 
 				}

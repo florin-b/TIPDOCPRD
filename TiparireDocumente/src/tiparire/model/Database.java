@@ -208,7 +208,8 @@ public class Database implements ProgressDialogListener {
 					Document unDocument = new Document(articol.get(i).getDocumentId(), articol.get(i).getEmitere(),
 							articol.get(i).getClient(), "00", "00", "0", articol.get(i).isPregatit(), articol.get(i)
 									.isTiparit(), articol.get(i).getTip(), articol.get(i).getNumeSofer(), articol
-									.get(i).getNrMasina(), getStatusDocument(articol, articol.get(i).getDocumentId()));
+									.get(i).getNrMasina(), getStatusDocument(articol, articol.get(i).getDocumentId()),
+							articol.get(i).getTipTransport());
 					documente.add(unDocument);
 				}
 

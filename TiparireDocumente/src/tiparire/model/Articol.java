@@ -1,5 +1,7 @@
 package tiparire.model;
 
+import tiparire.enums.EnumTipTransport;
+
 public class Articol {
 
 	private String documentId;
@@ -19,6 +21,7 @@ public class Articol {
 	private String modificare;
 	private String cantitateModificata;
 	private String infoStatus;
+	private EnumTipTransport tipTransport;
 
 	public Articol() {
 
@@ -26,7 +29,7 @@ public class Articol {
 
 	public Articol(String documentId, String client, String emitere, String cod, String nume, String cantitate,
 			String um, String pozitie, boolean isPregatit, boolean isTiparit, String tip, String depozit,
-			String modificare, String cantitateModificata, String infoStatus) {
+			String modificare, String cantitateModificata, String infoStatus, EnumTipTransport tipTransport) {
 		super();
 		this.documentId = documentId;
 		this.client = client;
@@ -43,6 +46,7 @@ public class Articol {
 		this.modificare = modificare;
 		this.cantitateModificata = cantitateModificata;
 		this.infoStatus = infoStatus;
+		this.tipTransport = tipTransport;
 	}
 
 	public String getDocumentId() {
@@ -179,6 +183,23 @@ public class Articol {
 
 	public void setInfoStatus(String infoStatus) {
 		this.infoStatus = infoStatus;
+	}
+
+	public EnumTipTransport getTipTransport() {
+		return tipTransport;
+	}
+
+	public void setTipTransport(EnumTipTransport tipTransport) {
+		this.tipTransport = tipTransport;
+	}
+
+	@Override
+	public String toString() {
+		return "Articol [documentId=" + documentId + ", client=" + client + ", emitere=" + emitere + ", cod=" + cod
+				+ ", nume=" + nume + ", cantitate=" + cantitate + ", um=" + um + ", pozitie=" + pozitie
+				+ ", isPregatit=" + isPregatit + ", isTiparit=" + isTiparit + ", tip=" + tip + ", depozit=" + depozit
+				+ ", numeSofer=" + numeSofer + ", nrMasina=" + nrMasina + ", modificare=" + modificare
+				+ ", cantitateModificata=" + cantitateModificata + ", infoStatus=" + infoStatus + "]";
 	}
 
 }

@@ -19,6 +19,8 @@ import javax.swing.JScrollPane;
 import javax.swing.KeyStroke;
 
 import tiparire.enums.EnumTipDocument;
+import tiparire.enums.EnumTipTransport;
+import tiparire.filtering.TransportFilter;
 import tiparire.model.Database;
 import tiparire.model.Document;
 import tiparire.model.EnumLogonStatus;
@@ -49,6 +51,7 @@ public class MainFrame extends JFrame implements LogonListener, DepartamentListe
 
 	private JRadioButtonMenuItem rbMenuSortData;
 	private JRadioButtonMenuItem rbMenuTransf;
+	private JRadioButtonMenuItem rbMenuTranspToate;
 
 	public MainFrame() {
 
@@ -100,6 +103,7 @@ public class MainFrame extends JFrame implements LogonListener, DepartamentListe
 		JMenu displayMenu = new JMenu("Afiseaza");
 		JMenu tipDocMenu = new JMenu("Tip document");
 		JMenu tipDocSort = new JMenu("Ordoneaza");
+		JMenu tipTransport = new JMenu("Transport");
 
 		JMenuItem departItem = new JMenuItem("Departament");
 		JMenuItem exitItem = new JMenuItem("Iesire");
@@ -138,12 +142,30 @@ public class MainFrame extends JFrame implements LogonListener, DepartamentListe
 		tipDocSort.add(rbMenuSortMasina);
 		tipDocSort.add(rbMenuSortClient);
 
+		rbMenuTranspToate = new JRadioButtonMenuItem("Toate");
+		rbMenuTranspToate.setSelected(true);
+		JRadioButtonMenuItem rbMenuTranspTrap = new JRadioButtonMenuItem("Arabesque");
+		JRadioButtonMenuItem rbMenuTranspTcli = new JRadioButtonMenuItem("Client");
+		JRadioButtonMenuItem rbMenuTranspTert = new JRadioButtonMenuItem("Tert");
+
+		ButtonGroup groupFiltru = new ButtonGroup();
+		groupFiltru.add(rbMenuTranspToate);
+		groupFiltru.add(rbMenuTranspTrap);
+		groupFiltru.add(rbMenuTranspTcli);
+		groupFiltru.add(rbMenuTranspTert);
+
+		tipTransport.add(rbMenuTranspToate);
+		tipTransport.add(rbMenuTranspTrap);
+		tipTransport.add(rbMenuTranspTcli);
+		tipTransport.add(rbMenuTranspTert);
+
 		actionMenu.add(departItem);
 		actionMenu.add(exitItem);
 		menuBar.add(actionMenu);
 		menuBar.add(displayMenu);
 		menuBar.add(tipDocMenu);
 		menuBar.add(tipDocSort);
+		menuBar.add(tipTransport);
 
 		JMenuItem tipDocItem = new JMenuItem("Documente");
 		displayMenu.add(tipDocItem);
@@ -162,6 +184,11 @@ public class MainFrame extends JFrame implements LogonListener, DepartamentListe
 		setMenuSortSofer(rbMenuSortSofer);
 		setMenuSortMasina(rbMenuSortMasina);
 		setMenuSortClient(rbMenuSortClient);
+
+		setMenuFiltruTrap(rbMenuTranspTrap);
+		setMenuFiltruTcli(rbMenuTranspTcli);
+		setMenuFiltruTert(rbMenuTranspTert);
+		setMenuFiltruToate(rbMenuTranspToate);
 
 		exitItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, ActionEvent.CTRL_MASK));
 
@@ -307,8 +334,7 @@ public class MainFrame extends JFrame implements LogonListener, DepartamentListe
 
 				Comparator[] comparators = new Comparator[] { new ClientComparator() };
 
-				DocumentChainedComparator<Document> chainedComparators = new DocumentChainedComparator<Document>(
-						comparators);
+				DocumentChainedComparator<Document> chainedComparators = new DocumentChainedComparator<>(comparators);
 
 				Collections.sort(documente, chainedComparators);
 
@@ -367,6 +393,7 @@ public class MainFrame extends JFrame implements LogonListener, DepartamentListe
 	public void dataReceived() {
 
 		rbMenuSortData.setSelected(true);
+		rbMenuTranspToate.setSelected(true);
 
 		tablePanel.setData(db.getDocumente());
 		tablePanel.autoresizeTableRowHeight();
@@ -420,6 +447,64 @@ public class MainFrame extends JFrame implements LogonListener, DepartamentListe
 
 		dataReceived();
 
+	}
+
+	private void setMenuFiltruTrap(JRadioButtonMenuItem rbMenuItem) {
+		rbMenuItem.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				List<Document> filteretList = new TransportFilter().getFilteredData(EnumTipTransport.TRAP,
+						db.getDocumente());
+
+				tablePanel.setData(filteretList);
+				tablePanel.autoresizeTableRowHeight();
+
+			}
+		});
+	}
+
+	private void setMenuFiltruTcli(JRadioButtonMenuItem rbMenuItem) {
+		rbMenuItem.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				List<Document> filteretList = new TransportFilter().getFilteredData(EnumTipTransport.TCLI,
+						db.getDocumente());
+
+				tablePanel.setData(filteretList);
+				tablePanel.autoresizeTableRowHeight();
+
+			}
+		});
+	}
+
+	private void setMenuFiltruTert(JRadioButtonMenuItem rbMenuItem) {
+		rbMenuItem.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				List<Document> filteretList = new TransportFilter().getFilteredData(EnumTipTransport.TERT,
+						db.getDocumente());
+
+				tablePanel.setData(filteretList);
+				tablePanel.autoresizeTableRowHeight();
+
+			}
+		});
+	}
+
+	private void setMenuFiltruToate(JRadioButtonMenuItem rbMenuItem) {
+		rbMenuItem.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				tablePanel.setData(db.getDocumente());
+				tablePanel.autoresizeTableRowHeight();
+
+			}
+		});
 	}
 
 }

@@ -32,6 +32,7 @@ public class HeaderDocPanel extends JPanel {
 
 	private JLabel numeSofer;
 	private JLabel nrMasina;
+	private JLabel tipTransport;
 
 	private JPanel headerPanel;
 	private JPanel artPanel;
@@ -117,6 +118,10 @@ public class HeaderDocPanel extends JPanel {
 		nrMasina.setFont(new Font("Helvetica", Font.PLAIN, 14));
 		nrMasina.setForeground(new Color(211, 34, 64));
 
+		tipTransport = new JLabel();
+		tipTransport.setFont(new Font("Helvetica", Font.PLAIN, 14));
+		tipTransport.setForeground(new Color(97, 128, 97));
+
 		rowNumLabel = new JLabel();
 
 		setLayout(new BorderLayout());
@@ -184,6 +189,18 @@ public class HeaderDocPanel extends JPanel {
 		gc.anchor = GridBagConstraints.FIRST_LINE_START;
 		headerPanel.add(nrMasina, gc);
 
+		// //////////////////////////////////////////
+
+		gc.gridy++;
+
+		gc.weightx = 1;
+		gc.weighty = 0.2;
+
+		gc.gridx = 1;
+		gc.insets = new Insets(2, 20, 0, 0);
+		gc.anchor = GridBagConstraints.FIRST_LINE_START;
+		headerPanel.add(tipTransport, gc);
+
 		int spaceCount = 5;
 		Border spaceCountBorder = BorderFactory.createEmptyBorder(spaceCount, spaceCount, spaceCount, spaceCount);
 		headerPanel.setBorder(spaceCountBorder);
@@ -236,6 +253,10 @@ public class HeaderDocPanel extends JPanel {
 			nrMasina.setText("Nr. auto: " + nrMasinaText);
 		else
 			nrMasina.setText(nrMasinaText);
+	}
+
+	public void setTipTransport(String tipTransportText) {
+		tipTransport.setText(tipTransportText);
 	}
 
 	public void setRownum(String rownum) {

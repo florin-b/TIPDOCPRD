@@ -6,6 +6,8 @@ import java.util.Hashtable;
 import org.ksoap2.serialization.KvmSerializable;
 import org.ksoap2.serialization.PropertyInfo;
 
+import tiparire.enums.EnumTipTransport;
+
 @SuppressWarnings("serial")
 public class Document implements KvmSerializable, Serializable {
 
@@ -21,6 +23,7 @@ public class Document implements KvmSerializable, Serializable {
 	private String numeSofer;
 	private String nrMasina;
 	private String infoStatus;
+	private EnumTipTransport tipTransport;
 
 	public Document() {
 
@@ -28,7 +31,7 @@ public class Document implements KvmSerializable, Serializable {
 
 	public Document(String id, String dataEmiterii, String client, String departament, String filiala,
 			String seTipareste, boolean marfaPregatita, boolean isTiparit, String tip, String numeSofer,
-			String nrMasina, String infoStatus) {
+			String nrMasina, String infoStatus, EnumTipTransport tipTransport) {
 		super();
 		this.id = id;
 		this.dataEmitere = dataEmiterii;
@@ -42,6 +45,7 @@ public class Document implements KvmSerializable, Serializable {
 		this.numeSofer = numeSofer;
 		this.nrMasina = nrMasina;
 		this.infoStatus = infoStatus;
+		this.tipTransport = tipTransport;
 	}
 
 	public String getId() {
@@ -144,6 +148,14 @@ public class Document implements KvmSerializable, Serializable {
 		this.infoStatus = infoStatus;
 	}
 
+	public EnumTipTransport getTipTransport() {
+		return tipTransport;
+	}
+
+	public void setTipTransport(EnumTipTransport tipTransport) {
+		this.tipTransport = tipTransport;
+	}
+
 	public Object getProperty(int arg0) {
 		switch (arg0) {
 		case 0:
@@ -168,6 +180,8 @@ public class Document implements KvmSerializable, Serializable {
 			return nrMasina;
 		case 10:
 			return infoStatus;
+		case 11:
+			return tipTransport.toString();
 
 		}
 		return null;
@@ -223,6 +237,11 @@ public class Document implements KvmSerializable, Serializable {
 		case 10:
 			info.type = PropertyInfo.STRING_CLASS;
 			info.name = "infoStatus";
+			break;
+
+		case 11:
+			info.type = PropertyInfo.STRING_CLASS;
+			info.name = "tipTransport";
 			break;
 
 		default:

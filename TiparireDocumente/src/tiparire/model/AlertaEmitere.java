@@ -42,6 +42,7 @@ public class AlertaEmitere {
 
 		} catch (ParseException e) {
 			e.printStackTrace();
+			System.out.println("Document: " + document);
 		}
 
 		return nrOre;
@@ -59,8 +60,6 @@ public class AlertaEmitere {
 	}
 
 	private Date getStopProgram(String filiala, Date data) throws ParseException {
-		
-		
 
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy", new Locale("ro"));
 

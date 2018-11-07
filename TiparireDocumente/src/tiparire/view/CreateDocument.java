@@ -115,6 +115,13 @@ public class CreateDocument {
 					builder.append(document.get(i).getInfoStatus());
 				}
 
+				if (!document.get(i).getTipTransport().toString().trim().isEmpty()) {
+					builder.append(System.getProperty("line.separator"));
+					builder.append("Transport:");
+					builder.append(addSpace("Transport:", 15));
+					builder.append(document.get(i).getTipTransport());
+				}				
+				
 				builder.append(System.getProperty("line.separator"));
 				builder.append(System.getProperty("line.separator"));
 

@@ -183,6 +183,7 @@ public class DocumentCell extends AbstractCellEditor implements TableCellEditor,
 		docPanel.setRownum(String.valueOf(row + 1));
 		docPanel.setNumeSofer(document.getNumeSofer());
 		docPanel.setNrMasina(document.getNrMasina());
+		docPanel.setTipTransport(document.getTipTransport().toString());
 
 		setTextAlertEmitereDocument(document);
 		setTextInfoStatus(document);
